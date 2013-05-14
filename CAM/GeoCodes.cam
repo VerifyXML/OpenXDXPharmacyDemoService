@@ -1,0 +1,35 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xml="http://www.w3.org/XML/1998/namespace"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1">
+  <as:Header>
+    <as:Description>No Description</as:Description>
+    <as:Owner>Not Set</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2013-04-15T12:27:16</as:DateTime>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure ID="NewFile" taxonomy="XML" reference="">
+      <geonames>
+        <code>
+          <postalcode>%20874%</postalcode>
+          <name>%Germantown%</name>
+          <countryCode>%US%</countryCode>
+          <lat>%39.13551%</lat>
+          <lng>%-77.28222%</lng>
+          <distance>%0%</distance>
+        </code>
+      </geonames>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <as:constraint action="makeRepeatable(//geonames/code)" />
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+</as:CAM>

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Pharmacy Search Demo</title>
+        <!-- Piwik analytics --> 
+        <script type="text/javascript">
+            var pkBaseURL = (("https:" == document.location.protocol) ? "https://analytics.verifyxml.org/" : "http://analytics.verifyxml.org/");
+            document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script type="text/javascript">
+            try {
+                var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);
+                piwikTracker.trackPageView();
+                piwikTracker.enableLinkTracking();
+            } catch( err ) {}
+        </script><noscript><p><img src="http://analytics.verifyxml.org/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
+        <!-- End Piwik Tracking Code -->
+        <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    </h:head>
+    <h:body>                
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" minSize="90" collapsible="false" resizable="false">                  
+                <h:graphicImage url="img/header.png"/> 
+            </p:layoutUnit> 
+            
+            <p:layoutUnit position="south" minSize="70"> 
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="Copyright ©2013 VerifyXML.org" style="font-style: italic;font-size: smaller"/>
+                    <h:outputLabel value="This demonstration site necessarily uses publicly available third-party information." style="font-style: italic;font-size: smaller"/>
+                    <h:outputLabel value="We assume no responsibility for its accuracy or completeness." style="font-style: italic;font-size: smaller"/>
+                </h:panelGrid>
+            </p:layoutUnit>     
+            
+            <p:layoutUnit position="center">                
+                <p:gmap id="mapData" center="#{pharamacySearchBean.latLong}" type="ROADMAP" zoom="#{pharamacySearchBean.zoomLevel}" style="width:100%;height:100%"
+                        model="#{pharamacySearchBean.mapModel}" widgetVar="map">
+                    
+                    <p:ajax event="overlaySelect" listener="#{pharamacySearchBean.onMarkerSelect}" />                     
+                    <p:ajax event="stateChange" listener="#{pharamacySearchBean.onMapStateChange}" />
+                    
+                    <p:gmapInfoWindow>  
+                        <p:outputPanel style="height: 500px;width: 300px;display:block;margin:auto:"> 
+                            <h:panelGrid columns="1" >
+                                <h:outputText value="#{pharamacySearchBean.marker.title}" style="font-size: larger;font-weight:  bold"/>
+                                <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.providerStreet.value}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="3" > 
+                                <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.cityName.value}" />
+                                <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.stateCode.value}" />
+                                <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.ZIP.value}" />                                
+                            </h:panelGrid>
+                            <p:spacer/>
+                            <p:dataTable value="#{pharamacySearchBean.markerPharmacyDetails.vaccinesDetails.vaccine}" var="vaccine" style="font-size: x-small;width: auto">
+                                <p:column headerText="Vaccine">
+                                    <h:outputText value="#{vaccine.vaccineName.value}" style="font-weight:  bold" />
+                                </p:column>
+                                <p:column headerText="In Stock">
+                                    <h:outputText value="#{vaccine.inStockCode.value}" />
+                                </p:column>
+                                <p:column headerText="Rx Required">
+                                    <h:outputText value="#{vaccine.RXrequiredCode.value}" />
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <p:panel header="Business Hours" style="font-size: x-small">
+                                <h:panelGrid columns="2" width="200">                                
+                                    <h:outputText value="Su" style="font-weight:  bold" />
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.sundayHours.value}" />
+                                    <h:outputText value="Mo" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.mondayHours.value}" />
+                                    <h:outputText value="Tu" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.tuesdayHours.value}" />
+                                    <h:outputText value="We" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.wednesdayHours.value}" />
+                                    <h:outputText value="Th" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.thursdayHours.value}" />
+                                    <h:outputText value="Fr" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.fridayHours.value}" />
+                                    <h:outputText value="Sa" style="font-weight: bold"/>
+                                    <h:outputText value="#{pharamacySearchBean.markerPharmacyDetails.operationsDetails.saturdayHours.value}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:outputPanel>  
+                    </p:gmapInfoWindow> 
+                    
+                </p:gmap> 
+ 
+            </p:layoutUnit>            
+            
+            <p:layoutUnit position="west" header="Providers" minSize="280" resizable="true">  
+                <h:form id="resultForm">
+                    <p:carousel id="providresCarusel" vertical="true" var="provider" style="width:98%; height: 80%" value="#{pharamacySearchBean.pharmaciesDetails}" rows="10">
+                        <h:panelGrid columns="2">                              
+                            <p:commandLink update=":mapData" >
+                                <h:graphicImage url="/img/mm_20_green.png"/>
+                                <f:setPropertyActionListener value="#{provider.providerID}" target="#{pharamacySearchBean.selectedProviderId}"/>
+                            </p:commandLink>
+                            <h:outputText id="name" value="#{provider.providerName.value}" />                                
+                        </h:panelGrid>  
+                    </p:carousel> 
+                </h:form>
+            </p:layoutUnit>
+                        
+            <p:layoutUnit position="east" header="Vaccine Search" minSize="250" collapsible="true">  
+                <h:form id="searchForm">
+                    <p:blockUI id="blkUI" block="srch" trigger="srchBttn" widgetVar="bui">  
+                        <p:graphicImage value="/img/ajax-loader.gif"/>  
+                    </p:blockUI> 
+                    <p:panel id="srch" style="border: none" >     
+                        <p:panel id="vac" header="Vaccines">                       
+                            <p:selectManyCheckbox id="vacList" value="#{pharamacySearchBean.selectedVaccines}" layout="pageDirection">
+                                <f:selectItems value="#{pharamacySearchBean.vaccines}"/>
+                            </p:selectManyCheckbox>                   
+                        </p:panel>
+                        <p:panel id="loc" header="Location">
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <h:outputLabel value="Enter ZIP code:" />
+                                <p:inputMask id="zip" mask="99999" value="#{pharamacySearchBean.zipSearch}" size="5" />
+                                <p:spacer/>
+                                <h:outputLabel value="Radius:" />
+                                <p:inputText id="radiusValue" value="#{pharamacySearchBean.searchRadius}" size="2" /> 
+                                <h:outputLabel value="miles" />
+                                <p:spacer/>
+                                <p:slider for="radiusValue"  minValue="0" maxValue="30" step="1"/>
+                                <p:spacer/>                                
+                            </h:panelGrid>                             
+                        </p:panel>
+                        <p:commandButton id="srchBttn" value="Search" actionListener="#{pharamacySearchBean.doZipSearch()}" update=":resultForm:providresCarusel,:mapData"/>                        
+                    </p:panel>
+                </h:form>                
+            </p:layoutUnit>            
+        </p:layout>        
+    </h:body>
+</html>

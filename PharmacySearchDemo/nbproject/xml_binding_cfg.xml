@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='PharmacySearchDemo' version='1.0'>
+	<schema type='-xmlschema' package='org.geocodes.postalcodes' name='GeoCodesService'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/GeoCodesService/GeoCodes.xsd' origLocation='../CAM/GeoCodes.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb' name='OpenXDXPharmacyServices'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/ProvidersFullLookup.xsd' origLocation='../CAM/ProvidersFullLookup.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

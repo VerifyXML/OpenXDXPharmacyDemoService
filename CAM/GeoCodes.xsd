@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:dblook="http://jcam.org.uk/DbLookupLists"
+ xmlns:look="http://jcam.org.uk/LookupLists"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1" elementFormDefault="qualified">
+  <xsd:annotation>
+    <xsd:documentation>NOTICE: Generated from CAM template by XSLT
+                    NOTICE:  This schema is designed to maximize software interoperability and uses basic XSD Schema constructs only.
+                     
+                    CAM Template Header information: 
+                    
+                    Description: No Description 
+                    Owner: Not Set 
+                    Date: 2013-04-15T12:27:16 
+                    Version: 0.1 
+                    XSD generator: v1.63 
+                    NS Mode: true 
+                    XSDOutput Mode: default
+                    NOTICE: Please refer to the original source owner schema, dictionary, and/or CAM template for updates and changes.
+                    NOTICE: For copyright, licensing and use criteria please refer to owner authority.</xsd:documentation>
+    <xsd:appinfo source="CAM">geonames</xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="geonames" id="d2e37">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="code" minOccurs="1" maxOccurs="unbounded" id="d2e44">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="postalcode" minOccurs="1" maxOccurs="1" type="postalcodeDefinition" id="d2e50" />
+              <xsd:element name="name" minOccurs="1" maxOccurs="1" type="nameDefinition" id="d2e58" />
+              <xsd:element name="countryCode" minOccurs="1" maxOccurs="1" type="countryCodeDefinition" id="d2e66" />
+              <xsd:element name="lat" minOccurs="1" maxOccurs="1" type="latDefinition" id="d2e74" />
+              <xsd:element name="lng" minOccurs="1" maxOccurs="1" type="lngDefinition" id="d2e82" />
+              <xsd:element name="distance" minOccurs="1" maxOccurs="1" type="distanceDefinition" id="d2e91" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- Parent complexTypes  -->
+  <!-- Local simpleTypes (default namespace)  -->
+  <xsd:simpleType name="postalcodeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for postalcode.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="nameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for name.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="countryCodeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for countryCode.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="latDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for lat.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="lngDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for lng.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="distanceDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for distance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+</xsd:schema>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService?wsdl" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/localhost_8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService.wsdl"/>
+    <system systemId="http://localhost:8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService?xsd=1" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/localhost_8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService.xsd_1.xsd"/>
+    <system systemId="http://verifyxml.org/OpenXDXPharmacyDemo/PharmacyOpenXDXService?wsdl" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/verifyxml.org/OpenXDXPharmacyDemo/PharmacyOpenXDXService.wsdl"/>
+    <system systemId="http://verifyxml.org/OpenXDXPharmacyDemo/PharmacyOpenXDXService?WSDL" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/verifyxml.org/OpenXDXPharmacyDemo/PharmacyOpenXDXService.wsdl"/>
+    <system systemId="http://verifyxml.org:80/OpenXDXPharmacyDemo/PharmacyOpenXDXService?xsd=1" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/verifyxml.org_80/OpenXDXPharmacyDemo/PharmacyOpenXDXService.xsd_1.xsd"/>
+    <system systemId="file:/home/serega/NetBeansProjects/PharmacySearchDemo/../../Work/Chicago-FluShot/ProvidersFullLookup-JAXB-binding.xml" uri="src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/ProvidersFullLookup-JAXB-binding.xml"/>
+    <system systemId="file:/home/serega/NetBeansProjects/PharmacySearchDemo/../../Work/Chicago-FluShot/ProvidersFullLookup-fixed.xsd" uri="src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/ProvidersFullLookup-fixed.xsd"/>
+    <system systemId="file:/home/serega/NetBeansProjects/PharmacySearchDemo/../../Work/Chicago-FluShot/Providers-Lookup-xdx.xml" uri="src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/Providers-Lookup-xdx.xml"/>
+    <system systemId="file:/home/serega/NetBeansProjects/PharmacySearchDemo/../../Work/Chicago-FluShot/ProvidersFullLookup.xsd" uri="src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/ProvidersFullLookup.xsd"/>
+    <system systemId="file:/home/serega/NetBeansProjects/PharmacySearchDemo/../../Work/Chicago-FluShot/GeoCodes.xsd" uri="src/conf/xml-resources/jaxb/GeoCodesService/GeoCodes.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/PharmacySearchDemo/../CAM/GeoCodes.xsd" uri="src/conf/xml-resources/jaxb/GeoCodesService/GeoCodes.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/PharmacySearchDemo/../CAM/ProvidersFullLookup.xsd" uri="src/conf/xml-resources/jaxb/OpenXDXPharmacyServices/ProvidersFullLookup.xsd"/>
+</catalog>
