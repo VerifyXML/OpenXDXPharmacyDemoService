@@ -1,0 +1,140 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1" cameditor="3.0.0">
+  <as:Header>
+    <as:Description>Retrieves SQL data for Providers locations</as:Description>
+    <as:Owner>Chicago</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2013-04-03T00:34:31</as:DateTime>
+  </as:Header>
+  <as:Namespaces>
+    <as:namespace prefix="xs">http://www.w3.org/2001/XMLSchema</as:namespace>
+    <as:namespace prefix="as">http://www.oasis-open.org/committees/cam</as:namespace>
+    <as:namespace prefix="xml">http://www.w3.org/XML/1998/namespace</as:namespace>
+    <as:namespace prefix="camed">http://jcam.org.uk/editor</as:namespace>
+  </as:Namespaces>
+  <as:Parameters>
+    <as:Parameter name="verify_CPHARM.Pharmacies" default="Pharmacies.ZIP_Search+%3D+%27%24ZIPsearch%27" use="dbmapping" />
+  </as:Parameters>
+  <as:AssemblyStructure>
+    <as:Structure ID="Providers" reference="" taxonomy="XML">
+      <as:parameters>
+        <as:Parameter name="verify_CPHARM.Pharmacies" default="Pharmacies.ZIP_Search+%3D+%27%24ZIPsearch%27" use="dbmapping" />
+      </as:parameters>
+      <as:Element name="Providers" path="/Providers" namespace="" namespacePrefix="">
+        <as:Rule>
+          <as:constraint action="makeMandatory()" />
+        </as:Rule>
+        <as:Element name="Pharmacy" path="/Providers/Pharmacy" namespace="" namespacePrefix="">
+          <as:Rule>
+            <as:constraint action="makeRepeatable()" xpath="//Providers/Pharmacy" />
+          </as:Rule>
+          <camed:annotation item="//Providers/Pharmacy">
+            <camed:documentation type="Definition">Main pharmacy directory table</camed:documentation>
+          </camed:annotation>
+          <as:Element name="ProviderID" path="/Providers/Pharmacy/ProviderID" namespace="" namespacePrefix="" exampleValue="%123456%">
+            <as:Rule>
+              <as:constraint action="setNumberMask(##########)" xpath="//Pharmacy/ProviderID" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/ProviderID">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ProviderID</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="XcoordValue" path="/Providers/Pharmacy/XcoordValue" namespace="" namespacePrefix="" exampleValue="%1234.00%">
+            <as:Rule>
+              <as:constraint action="setLength(1-8)" xpath="//Pharmacy/XcoordValue" />
+              <as:constraint action="setNumberMask(######.##)" xpath="//Pharmacy/XcoordValue" />
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/XcoordValue" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/XcoordValue">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Xcoord</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="YcoordValue" path="/Providers/Pharmacy/YcoordValue" namespace="" namespacePrefix="" exampleValue="%1234.00%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/YcoordValue" />
+              <as:constraint action="setLength(1-8)" xpath="//Pharmacy/YcoordValue" />
+              <as:constraint action="setNumberMask(######.##)" xpath="//Pharmacy/YcoordValue" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/YcoordValue">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Ycoord</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="ProviderName" path="/Providers/Pharmacy/ProviderName" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="setLength(1-100)" xpath="//Pharmacy/ProviderName" />
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/ProviderName" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/ProviderName">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Name</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="ProviderStreet" path="/Providers/Pharmacy/ProviderStreet" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/ProviderStreet" />
+              <as:constraint action="setLength(1-100)" xpath="//Pharmacy/ProviderStreet" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/ProviderStreet">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Street</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="CityName" path="/Providers/Pharmacy/CityName" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/CityName" />
+              <as:constraint action="setLength(1-100)" xpath="//Pharmacy/CityName" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/CityName">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.City_Name</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="StateCode" path="/Providers/Pharmacy/StateCode" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/StateCode" />
+              <as:constraint action="setLength(1-2)" xpath="//Pharmacy/StateCode" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/StateCode">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="ZIP" path="/Providers/Pharmacy/ZIP" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/ZIP" />
+              <as:constraint action="setLength(1-10)" xpath="//Pharmacy/ZIP" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/ZIP">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ZIP</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="ProviderFacilityType" path="/Providers/Pharmacy/ProviderFacilityType" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/ProviderFacilityType" />
+              <as:constraint action="setLength(1-25)" xpath="//Pharmacy/ProviderFacilityType" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/ProviderFacilityType">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Facility_Type</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="LastUpdatedDate" path="/Providers/Pharmacy/LastUpdatedDate" namespace="" namespacePrefix="" exampleValue="%YYYY-MM-DD%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/LastUpdatedDate" />
+              <as:constraint action="setDateMask(YYYY-MM-DD)" xpath="//Pharmacy/LastUpdatedDate" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/LastUpdatedDate">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Last_Updated_Date</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="FacilityStatus" path="/Providers/Pharmacy/FacilityStatus" namespace="" namespacePrefix="" exampleValue="%string%">
+            <as:Rule>
+              <as:constraint action="makeOptional()" xpath="//Pharmacy/FacilityStatus" />
+              <as:constraint action="setLength(1-15)" xpath="//Pharmacy/FacilityStatus" />
+            </as:Rule>
+            <camed:annotation item="/Providers/Pharmacy/FacilityStatus">
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Facility_Status</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+        </as:Element>
+      </as:Element>
+    </as:Structure>
+  </as:AssemblyStructure>
+</as:CAM>
