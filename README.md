@@ -1,4 +1,4 @@
 OpenXDXPharmacyDemoService
 ==========================
 
-This project is a Demonstration of usage Open-XDX and Oracle Open stack.
+This project is a Demonstration of using the Open-XDX toolset with the Oracle Open Source middleware stack.
