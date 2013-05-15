@@ -1,0 +1,234 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xml="http://www.w3.org/XML/1998/namespace"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1">
+  <as:Header>
+    <as:Description>Pharmacy Vaccines and Operations lookup by ProviderID</as:Description>
+    <as:Owner>Chicago</as:Owner>
+    <as:Version>0.5</as:Version>
+    <as:DateTime>2013-04-03T00:46:00</as:DateTime>
+    <as:Parameters>
+      <as:Parameter name="verify_CPHARM.Pharmacies" default="Pharmacies.ProviderID%3D%27%24ProviderID%27" use="dbmapping" />
+    </as:Parameters>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure ID="Vaccines" taxonomy="XML" reference="">
+      <Vaccines>
+        <PharmacyDetails>
+          <ProviderID>%123456%</ProviderID>
+          <XcoordValue>%1234.00%</XcoordValue>
+          <YcoordValue>%1234.00%</YcoordValue>
+          <ProviderName>%string%</ProviderName>
+          <ProviderStreet>%string%</ProviderStreet>
+          <CityName>%string%</CityName>
+          <StateCode>%string%</StateCode>
+          <ZIP>%string%</ZIP>
+          <ProviderAddressOther>%string%</ProviderAddressOther>
+          <ProviderContactEMail>%string%</ProviderContactEMail>
+          <ProviderWebsiteURL>%string%</ProviderWebsiteURL>
+          <ProviderFacilityType>%string%</ProviderFacilityType>
+          <LastUpdatedDate>%YYYY-MM-DD%</LastUpdatedDate>
+          <FacilityStatus>%string%</FacilityStatus>
+          <VaccinesDetails>
+            <VaccineName>%string%</VaccineName>
+            <RXrequiredCode>%token%</RXrequiredCode>
+            <InStockCode>%token%</InStockCode>
+            <VaccineType>%string%</VaccineType>
+            <UniqueID>%123456%</UniqueID>
+          </VaccinesDetails>
+          <OperationsDetails>
+            <StartDate>%YYYY-MM-DD%</StartDate>
+            <MondayHours>%string%</MondayHours>
+            <TuesdayHours>%string%</TuesdayHours>
+            <WednesdayHours>%string%</WednesdayHours>
+            <ThursdayHours>%string%</ThursdayHours>
+            <FridayHours>%string%</FridayHours>
+            <SaturdayHours>%string%</SaturdayHours>
+            <SundayHours>%string%</SundayHours>
+            <OpenHolidaysCode>%token%</OpenHolidaysCode>
+            <InsuranceAcceptedText>%string%</InsuranceAcceptedText>
+            <WalkinsAllowedCode>%token%</WalkinsAllowedCode>
+          </OperationsDetails>
+        </PharmacyDetails>
+      </Vaccines>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <as:constraint action="makeOptional(//OperationsDetails/FridayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/FridayHours,1-20)" />
+          <as:constraint action="makeOptional(//OperationsDetails/InsuranceAcceptedText)" />
+          <as:constraint action="setLength(//OperationsDetails/InsuranceAcceptedText,1-200)" />
+          <as:constraint action="makeOptional(//OperationsDetails/MondayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/MondayHours,1-20)" />
+          <as:constraint action="datatype(//OperationsDetails/OpenHolidaysCode,token)" />
+          <as:constraint action="makeOptional(//OperationsDetails/OpenHolidaysCode)" />
+          <as:constraint action="setLength(//OperationsDetails/OpenHolidaysCode,1-1)" />
+          <as:constraint action="makeOptional(//OperationsDetails/SaturdayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/SaturdayHours,1-20)" />
+          <as:constraint action="makeOptional(//OperationsDetails/StartDate)" />
+          <as:constraint action="setDateMask(//OperationsDetails/StartDate,YYYY-MM-DD)" />
+          <as:constraint action="makeOptional(//OperationsDetails/SundayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/SundayHours,1-20)" />
+          <as:constraint action="makeOptional(//OperationsDetails/ThursdayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/ThursdayHours,1-20)" />
+          <as:constraint action="makeOptional(//OperationsDetails/TuesdayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/TuesdayHours,1-20)" />
+          <as:constraint action="datatype(//OperationsDetails/WalkinsAllowedCode,token)" />
+          <as:constraint action="makeOptional(//OperationsDetails/WalkinsAllowedCode)" />
+          <as:constraint action="setLength(//OperationsDetails/WalkinsAllowedCode,1-1)" />
+          <as:constraint action="makeOptional(//OperationsDetails/WednesdayHours)" />
+          <as:constraint action="setLength(//OperationsDetails/WednesdayHours,1-20)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/CityName)" />
+          <as:constraint action="setLength(//PharmacyDetails/CityName,1-100)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/FacilityStatus)" />
+          <as:constraint action="setLength(//PharmacyDetails/FacilityStatus,1-15)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/LastUpdatedDate)" />
+          <as:constraint action="setDateMask(//PharmacyDetails/LastUpdatedDate,YYYY-MM-DD)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderAddressOther)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderAddressOther,1-100)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderContactEMail)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderContactEMail,1-100)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderFacilityType)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderFacilityType,1-25)" />
+          <as:constraint action="setNumberMask(//PharmacyDetails/ProviderID,##########)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderName)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderName,1-100)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderStreet)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderStreet,1-100)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ProviderWebsiteURL)" />
+          <as:constraint action="setLength(//PharmacyDetails/ProviderWebsiteURL,1-200)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/StateCode)" />
+          <as:constraint action="setLength(//PharmacyDetails/StateCode,1-2)" />
+          <as:constraint action="makeRepeatable(//PharmacyDetails/VaccinesDetails)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/XcoordValue)" />
+          <as:constraint action="setLength(//PharmacyDetails/XcoordValue,1-8)" />
+          <as:constraint action="setNumberMask(//PharmacyDetails/XcoordValue,######.##)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/YcoordValue)" />
+          <as:constraint action="setLength(//PharmacyDetails/YcoordValue,1-8)" />
+          <as:constraint action="setNumberMask(//PharmacyDetails/YcoordValue,######.##)" />
+          <as:constraint action="makeOptional(//PharmacyDetails/ZIP)" />
+          <as:constraint action="setLength(//PharmacyDetails/ZIP,1-10)" />
+          <as:constraint action="datatype(//VaccinesDetails/InStockCode,token)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/InStockCode)" />
+          <as:constraint action="setLength(//VaccinesDetails/InStockCode,1-1)" />
+          <as:constraint action="datatype(//VaccinesDetails/RXrequiredCode,token)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/RXrequiredCode)" />
+          <as:constraint action="setLength(//VaccinesDetails/RXrequiredCode,1-1)" />
+          <as:constraint action="setNumberMask(//VaccinesDetails/UniqueID,##########)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/VaccineName)" />
+          <as:constraint action="setLength(//VaccinesDetails/VaccineName,1-45)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/VaccineType)" />
+          <as:constraint action="setLength(//VaccinesDetails/VaccineType,1-15)" />
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+  <as:Extension name="uk.org.jcam.camed.extensions.StructureAnnotations">
+    <camed:annotation item="//PharmacyDetails/OperationsDetails">
+      <camed:documentation type="Definition">Facility operational details</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="//PharmacyDetails/ProviderWebsiteURL">
+      <camed:documentation type="Definition">Website URL</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="//PharmacyDetails/VaccinesDetails">
+      <camed:documentation type="Definition">Vaccines inventory details</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="//Vaccines/PharmacyDetails">
+      <camed:documentation type="Definition">Main pharmacy directory table</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/CityName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.City_Name</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/FacilityStatus">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Facility_Status</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/LastUpdatedDate">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Last_Updated_Date</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/FridayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.FridayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/InsuranceAcceptedText">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.InsuranceAccepted</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/MondayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.MondayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/OpenHolidaysCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.OpenHolidays</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/SaturdayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.SaturdayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/StartDate">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.StartDate</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/SundayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.SundayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/ThursdayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.ThursdayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/TuesdayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.TuesdayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/WalkinsAllowedCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.WalkinsAllowed</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/OperationsDetails/WednesdayHours">
+      <camed:documentation type="DBMapping">verify_CPHARM.Operations.WednesdayHours</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderAddressOther">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Address_Other</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderContactEMail">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Contact_EMail</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderFacilityType">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Facility_Type</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderID">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ProviderID</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Name</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderStreet">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Street</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ProviderWebsiteURL">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Website_URL</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/StateCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State_Code</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/VaccinesDetails/InStockCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.InStock</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/VaccinesDetails/RXrequiredCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.RXrequired</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/VaccinesDetails/UniqueID">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.UniqueID</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/VaccinesDetails/VaccineName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.VaccineName</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/VaccinesDetails/VaccineType">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.VaccineType</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/XcoordValue">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Xcoord</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/YcoordValue">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Ycoord</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Vaccines/PharmacyDetails/ZIP">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ZIP</camed:documentation>
+    </camed:annotation>
+  </as:Extension>
+</as:CAM>

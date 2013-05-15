@@ -16,3 +16,7 @@ PharmacySearchDemo/dist/
 PharmacySearchDemo/nbdist/
 PharmacySearchDemo/nbactions.xml
 PharmacySearchDemo/nb-configuration.xml
+
+### Text Editor ###
+*.*~
+**/*.*~

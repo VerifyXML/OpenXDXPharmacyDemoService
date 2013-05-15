@@ -1,0 +1,104 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xml="http://www.w3.org/XML/1998/namespace"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1">
+  <as:Header>
+    <as:Description>Retrieves SQL data for Providers locations</as:Description>
+    <as:Owner>Chicago</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2013-04-03T00:34:31</as:DateTime>
+    <as:Parameters>
+      <as:Parameter name="verify_CPHARM.Pharmacies" default="Pharmacies.ZIP_Search+%3D+%27%24ZIPsearch%27" use="dbmapping" />
+    </as:Parameters>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure ID="Providers" taxonomy="XML" reference="">
+      <Providers>
+        <Pharmacy>
+          <ProviderID>%123456%</ProviderID>
+          <XcoordValue>%1234.00%</XcoordValue>
+          <YcoordValue>%1234.00%</YcoordValue>
+          <ProviderName>%string%</ProviderName>
+          <ProviderStreet>%string%</ProviderStreet>
+          <CityName>%string%</CityName>
+          <StateCode>%string%</StateCode>
+          <ZIP>%string%</ZIP>
+          <ProviderFacilityType>%string%</ProviderFacilityType>
+          <LastUpdatedDate>%YYYY-MM-DD%</LastUpdatedDate>
+          <FacilityStatus>%string%</FacilityStatus>
+        </Pharmacy>
+      </Providers>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <as:constraint action="makeOptional(//Pharmacy/CityName)" />
+          <as:constraint action="setLength(//Pharmacy/CityName,1-100)" />
+          <as:constraint action="makeOptional(//Pharmacy/FacilityStatus)" />
+          <as:constraint action="setLength(//Pharmacy/FacilityStatus,1-15)" />
+          <as:constraint action="makeOptional(//Pharmacy/LastUpdatedDate)" />
+          <as:constraint action="setDateMask(//Pharmacy/LastUpdatedDate,YYYY-MM-DD)" />
+          <as:constraint action="makeOptional(//Pharmacy/ProviderFacilityType)" />
+          <as:constraint action="setLength(//Pharmacy/ProviderFacilityType,1-25)" />
+          <as:constraint action="setNumberMask(//Pharmacy/ProviderID,##########)" />
+          <as:constraint action="makeOptional(//Pharmacy/ProviderName)" />
+          <as:constraint action="setLength(//Pharmacy/ProviderName,1-100)" />
+          <as:constraint action="makeOptional(//Pharmacy/ProviderStreet)" />
+          <as:constraint action="setLength(//Pharmacy/ProviderStreet,1-100)" />
+          <as:constraint action="makeOptional(//Pharmacy/StateCode)" />
+          <as:constraint action="setLength(//Pharmacy/StateCode,1-2)" />
+          <as:constraint action="makeOptional(//Pharmacy/XcoordValue)" />
+          <as:constraint action="setLength(//Pharmacy/XcoordValue,1-8)" />
+          <as:constraint action="setNumberMask(//Pharmacy/XcoordValue,######.##)" />
+          <as:constraint action="makeOptional(//Pharmacy/YcoordValue)" />
+          <as:constraint action="setLength(//Pharmacy/YcoordValue,1-8)" />
+          <as:constraint action="setNumberMask(//Pharmacy/YcoordValue,######.##)" />
+          <as:constraint action="makeOptional(//Pharmacy/ZIP)" />
+          <as:constraint action="setLength(//Pharmacy/ZIP,1-10)" />
+          <as:constraint action="makeRepeatable(//Providers/Pharmacy)" />
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+  <as:Extension name="uk.org.jcam.camed.extensions.StructureAnnotations">
+    <camed:annotation item="//Providers/Pharmacy">
+      <camed:documentation type="Definition">Main pharmacy directory table</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/CityName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.City_Name</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/FacilityStatus">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Facility_Status</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/LastUpdatedDate">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Last_Updated_Date</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/ProviderFacilityType">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Facility_Type</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/ProviderID">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ProviderID</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/ProviderName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Name</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/ProviderStreet">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Street</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/StateCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/XcoordValue">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Xcoord</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/YcoordValue">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Ycoord</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/Providers/Pharmacy/ZIP">
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.ZIP</camed:documentation>
+    </camed:annotation>
+  </as:Extension>
+</as:CAM>
