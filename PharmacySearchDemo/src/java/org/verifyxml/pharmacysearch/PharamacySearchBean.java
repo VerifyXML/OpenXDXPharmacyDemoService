@@ -171,7 +171,7 @@ public class PharamacySearchBean implements Serializable {
                 }
 
                 // Get Zip codes for specified radius
-                Geonames geocodes = geoSearchService.getGeoCodes(Integer.toString(zipSearch), Integer.toString(searchRadius));
+                Geonames geocodes = geoSearchService.getGeoCodes(String.format("%05d",zipSearch), Integer.toString(searchRadius));
 
                 // Build Zip codes list
                 StringBuilder zipList = new StringBuilder();
