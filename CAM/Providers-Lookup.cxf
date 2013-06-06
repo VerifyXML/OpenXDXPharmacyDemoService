@@ -94,7 +94,7 @@
               <as:constraint action="setLength(1-2)" xpath="//Pharmacy/StateCode" />
             </as:Rule>
             <camed:annotation item="/Providers/Pharmacy/StateCode">
-              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State</camed:documentation>
+              <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State_Code</camed:documentation>
             </camed:annotation>
           </as:Element>
           <as:Element name="ZIP" path="/Providers/Pharmacy/ZIP" namespace="" namespacePrefix="" exampleValue="%string%">

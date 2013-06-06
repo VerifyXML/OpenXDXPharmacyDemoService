@@ -89,7 +89,7 @@
       <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Provider_Street</camed:documentation>
     </camed:annotation>
     <camed:annotation item="/Providers/Pharmacy/StateCode">
-      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State</camed:documentation>
+      <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.State_Code</camed:documentation>
     </camed:annotation>
     <camed:annotation item="/Providers/Pharmacy/XcoordValue">
       <camed:documentation type="DBMapping">verify_CPHARM.Pharmacies.Xcoord</camed:documentation>
