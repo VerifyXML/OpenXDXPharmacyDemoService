@@ -25,7 +25,16 @@ OpenXDXPharmacyDemo/nbdist/
 OpenXDXPharmacyDemo/nbactions.xml
 OpenXDXPharmacyDemo/nb-configuration.xml
 
+PharmacyUpdateDemo/nbproject/private/
+PharmacyUpdateDemo/build/
+PharmacyUpdateDemo/nbbuild/
+PharmacyUpdateDemo/dist/
+PharmacyUpdateDemo/nbdist/
+PharmacyUpdateDemo/nbactions.xml
+PharmacyUpdateDemo/nb-configuration.xml
 
 ### Text Editor ###
 *.*~
 **/*.*~
+
+

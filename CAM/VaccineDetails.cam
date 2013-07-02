@@ -1,0 +1,60 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xml="http://www.w3.org/XML/1998/namespace"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1" cameditor="3.0.0">
+  <as:Header>
+    <as:Description>No Description</as:Description>
+    <as:Owner>Not Set</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2013-07-01T08:11:56</as:DateTime>
+    <as:Parameters>
+      <as:Parameter name="verify_CPHARM.Vaccines" default="ProviderID+%3D+%24ProviderID" use="dbmapping" />
+    </as:Parameters>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure ID="VaccineDetails" taxonomy="XML" reference="">
+      <VaccineDetails>
+        <VaccinesDetails>
+          <ProviderID>%123456%</ProviderID>
+          <VaccineName>%string%</VaccineName>
+          <InStockCode>%token%</InStockCode>
+          <UniqueID>%123456%</UniqueID>
+        </VaccinesDetails>
+      </VaccineDetails>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <as:constraint action="makeRepeatable(//VaccineDetails/VaccinesDetails)" />
+          <as:constraint action="datatype(//VaccinesDetails/InStockCode,token)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/InStockCode)" />
+          <as:constraint action="setLength(//VaccinesDetails/InStockCode,1-1)" />
+          <as:constraint action="setNumberMask(//VaccinesDetails/ProviderID,##########)" />
+          <as:constraint action="setNumberMask(//VaccinesDetails/UniqueID,##########)" />
+          <as:constraint action="makeOptional(//VaccinesDetails/VaccineName)" />
+          <as:constraint action="setLength(//VaccinesDetails/VaccineName,1-45)" />
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+  <as:Extension name="uk.org.jcam.camed.extensions.StructureAnnotations">
+    <camed:annotation item="//VaccineDetails/VaccinesDetails">
+      <camed:documentation type="Definition">Vaccines inventory details</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/VaccineDetails/VaccinesDetails/InStockCode">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.InStock</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/VaccineDetails/VaccinesDetails/ProviderID">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.ProviderID</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/VaccineDetails/VaccinesDetails/UniqueID">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.UniqueID</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="/VaccineDetails/VaccinesDetails/VaccineName">
+      <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.VaccineName</camed:documentation>
+    </camed:annotation>
+  </as:Extension>
+</as:CAM>

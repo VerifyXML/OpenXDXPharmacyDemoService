@@ -48,6 +48,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
@@ -86,7 +88,14 @@ public class PharmacyJSONResource {
         // Set Response builder
         Response.ResponseBuilder response;
         try{
-            String xml = openXDXHandler.getOpenXDX(zip, vaccType);
+            Map<String, String> tokens = new HashMap<String, String>();
+            tokens.put("$ZIPsearch", zip);        
+            if(vaccType == null){
+                tokens.put("$VaccineTypeID", "NULL");
+            }else{
+                tokens.put("$VaccineTypeID", vaccType);
+            }
+            String xml = openXDXHandler.getOpenXDX(openXDXHandler.providerLookupTemplateFile, tokens);
             if(xml != null){
                 response = Response.ok(convertXMLtoJSON(xml), MediaType.APPLICATION_JSON);           
             }else{

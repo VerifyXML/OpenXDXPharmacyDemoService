@@ -41,6 +41,8 @@
  */
 package org.verifyxml.rest.pharmacyservices;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
@@ -76,7 +78,14 @@ public class PharmacyXMLResource {
         // Set Response builder
         Response.ResponseBuilder response;
         try{
-            String xml = openXDXHandler.getOpenXDX(zip, vaccType);
+            Map<String, String> tokens = new HashMap<String, String>();
+            tokens.put("$ZIPsearch", zip);        
+            if(vaccType == null){
+                tokens.put("$VaccineTypeID", "NULL");
+            }else{
+                tokens.put("$VaccineTypeID", vaccType);
+            }
+            String xml = openXDXHandler.getOpenXDX(openXDXHandler.providerLookupTemplateFile, tokens);
             if(xml != null){
                 response = Response.ok(xml, MediaType.APPLICATION_XML);           
             }else{

@@ -48,7 +48,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +73,11 @@ public class OpenXDXHandler {
 
     //CAM Templates
     private static final String PROVIDER_LOOKUP_QUERY_TEMPLATE = "/ProvidersFullLookup.cxf";
-    private File providerTemplateFile;
+    private static final String PROVIDER_LIST_TEMPLATE = "/ProviderList.cxf";
+    private static final String VACCINE_DETAILS_TEMPLATE = "/VaccineDetails.cxf";
+    public File providerLookupTemplateFile;
+    public File providerListTemplateFile;
+    public File vaccineDetailsTemplateFile;
     
     // Data source
     private DataSource datasourceChicago;
@@ -92,7 +95,9 @@ public class OpenXDXHandler {
             }
             datasourceChicago = (DataSource)initialContext.lookup(CHICAGO_DATASOURCE_CONTEXT);
 
-            providerTemplateFile = extractResource(PROVIDER_LOOKUP_QUERY_TEMPLATE);
+            providerLookupTemplateFile = extractResource(PROVIDER_LOOKUP_QUERY_TEMPLATE);
+            providerListTemplateFile = extractResource(PROVIDER_LIST_TEMPLATE);
+            vaccineDetailsTemplateFile = extractResource(VACCINE_DETAILS_TEMPLATE);
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Cannot initialize OpenXDXHandler", e);
         }
@@ -101,27 +106,16 @@ public class OpenXDXHandler {
     /**
      * Retrieve OpenXDX data. 
      * 
-     * @param zip Zip Codes list. Can be one or multiple. Use commas to separate multiple zip codes i.e. 60624,60619
-     * @param vaccType Vaccine Type Codes list. Optional parameter to narrow down the list of Providers. Can be one or multiple. Use commas to separate multiple zip codes i.e. 1,2,3
+     * @param cxfFile CAM Template File
+     * @param tokens Parameter tokens
      * @return OpenXDX XML Object as String
      */
-    public String getOpenXDX(String zip, String vaccType) {
+    public String getOpenXDX(File cxfFile, Map<String, String> tokens) {
+        
         String xmlString = null;
-        if(zip == null){
-            throw new IllegalArgumentException("The ZIP Code is requiered.");
-        }        
         
         // Set Output Stream for XML
         ByteArrayOutputStream out = null;
-
-        // Prepare CAM DBMapping parameters
-        Map<String, String> tokens = new HashMap<String, String>();
-        tokens.put("$ZIPsearch", zip);        
-        if(vaccType == null){
-            tokens.put("$VaccineTypeID", "NULL");
-        }else{
-            tokens.put("$VaccineTypeID", vaccType);
-        }
         
         // Set temporary data file
         File dataOutput = null;
@@ -137,7 +131,7 @@ public class OpenXDXHandler {
                     File.createTempFile(this.getClass().getName(), OPEN_XDX_DUMP_XML);
 
             // Set CAM Template
-            processor.setTemplate(providerTemplateFile);
+            processor.setTemplate(cxfFile);
 
             // Set Data source
             processor.setDataSource(datasourceChicago);
@@ -148,7 +142,6 @@ public class OpenXDXHandler {
             // Generate Open-XDX XML
             StreamResult result = new StreamResult(out);            
             processor.generate(dataOutput, result);        
-
             // Set XML String
             xmlString = out.toString();
         } catch (Exception e) {
@@ -202,7 +195,9 @@ public class OpenXDXHandler {
      
     @Override
     protected void finalize() throws Throwable {        
-        providerTemplateFile.deleteOnExit();
+        providerLookupTemplateFile.deleteOnExit();
+        providerListTemplateFile.deleteOnExit();
+        vaccineDetailsTemplateFile.deleteOnExit();
         super.finalize();
     }   
 }

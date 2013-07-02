@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Pharmacy Update Demo</title>
+        <!-- Piwik analytics --> 
+        <script type="text/javascript">
+            var pkBaseURL = (("https:" == document.location.protocol) ? "https://analytics.verifyxml.org/" : "http://analytics.verifyxml.org/");
+            document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script type="text/javascript">
+            try {
+                var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);
+                piwikTracker.trackPageView();
+                piwikTracker.enableLinkTracking();
+            } catch( err ) {}
+        </script><noscript><p><img src="http://analytics.verifyxml.org/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
+        <!-- End Piwik Tracking Code -->
+    </h:head>
+    <h:body>                
+        <p:layout fullPage="true">
+            
+            <p:layoutUnit position="north" minSize="90" collapsible="false" resizable="false">                  
+                <h:graphicImage url="img/header.png"/> 
+            </p:layoutUnit> 
+            
+            <p:layoutUnit position="south" minSize="70"> 
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="Copyright ©2013 VerifyXML.org" style="font-style: italic;font-size: smaller"/>
+                    <h:outputLabel value="This demonstration site necessarily uses publicly available third-party information." style="font-style: italic;font-size: smaller"/>
+                    <h:outputLabel value="We assume no responsibility for its accuracy or completeness." style="font-style: italic;font-size: smaller"/>
+                </h:panelGrid>
+            </p:layoutUnit>     
+            
+            <p:layoutUnit position="center">
+                <p:layout>
+                    <p:layoutUnit position="north" size="60%" header="Pharmacies">
+                        <h:form>
+                            <p:blockUI id="blkUI" block="data" trigger="loadBttn" widgetVar="bui">  
+                                <p:graphicImage value="/img/ajax-loader.gif"/>  
+                            </p:blockUI> 
+                            <p:panel id="data">
+                                <p:dataTable id="pharmacyTable" var="pharmacies" value="#{pharmacyUpdateService.pharmaciesList}" paginator="true" rows="7"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" sortMode="multiple"
+                                             selectionMode="single" selection="#{pharmacyUpdateService.selectedPharmacy}" rowKey="#{pharmacies.providerID}"> 
+
+                                    <p:ajax event="rowSelect" listener="#{pharmacyUpdateService.doVaccineDetailLoad()}" update=":details:vaccineDetails"/>  
+
+                                    <p:column sortBy="#{pharmacies.providerName.value}" headerText="Pharmacy">
+                                        <h:outputText value="#{pharmacies.providerName.value}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{pharmacies.providerStreet.value}" headerText="Street">
+                                        <h:outputText value="#{pharmacies.providerStreet.value}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{pharmacies.cityName.value}" headerText="City">
+                                        <h:outputText value="#{pharmacies.cityName.value}"/>
+                                    </p:column>
+                                    <p:column sortBy="#{pharmacies.ZIP.value}" headerText="Zip">
+                                        <h:outputText value="#{pharmacies.ZIP.value}"/>
+                                    </p:column>
+                                </p:dataTable>                            
+                            </p:panel>
+                            <p:commandButton id="loadBttn" value="Load Pharmacies" action="#{pharmacyUpdateService.doPharmaciesLoad()}" update="pharmacyTable"/>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit id="vaccineLayout" position="center" header="Vaccine Availability Details">
+                        <h:form id="details">
+                            <p:blockUI id="blkUI2" block="vaccineDetails" trigger="updateButton" widgetVar="bui2">  
+                                <p:graphicImage value="/img/ajax-loader.gif"/>  
+                            </p:blockUI> 
+                            <p:growl id="growl" showDetail="true"/>  
+                            <p:panelGrid id="vaccineDetails" columns="6">
+                                <f:facet name="header">
+                                    <p:dataGrid value="#{pharmacyUpdateService.vaccineDetailsList}" var="vaccine" columns="6" rows="6" paginator="true"
+                                                paginatorTemplate="#{pharmacyUpdateService.selectedPharmacy.providerName.value} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                                rowsPerPageTemplate="6,12">
+                                        <p:panel header="#{vaccine.vaccineName.value}" style="text-align:center">                                            
+                                            <p:selectOneMenu value="#{vaccine.inStockCode.value}" label="#{vaccine.inStockCode.value}">
+                                                <f:selectItem itemLabel="Yes" itemValue="Y" /> 
+                                                <f:selectItem itemLabel="No" itemValue="N" /> 
+                                            </p:selectOneMenu>
+                                        </p:panel>
+                                    </p:dataGrid>
+                                </f:facet>  
+                            </p:panelGrid>
+                            <p:commandButton id="updateButton" value="Update" action="#{pharmacyUpdateService.doVaccineUpdate()}" update="growl,vaccineDetails"/>  
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+        </p:layout>       
+        <p:idleMonitor timeout="1800000"   
+            onidle="idleDialog.show();" onactive="idleDialog.hide();location.reload(true);"/>  
+        <p:dialog header="Timeout" resizable="false"  
+                  widgetVar="idleDialog" modal="true" width="400">  
+            <h:outputText value="Session timed out." />  
+        </p:dialog>  
+              
+    </h:body>
+    
+</html>
+

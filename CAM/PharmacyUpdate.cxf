@@ -1,0 +1,66 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.1" cameditor="3.0.0">
+  <as:Header>
+    <as:Description>No Description</as:Description>
+    <as:Owner>Not Set</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2013-06-17T15:23:33</as:DateTime>
+  </as:Header>
+  <as:Namespaces>
+    <as:namespace prefix="xs">http://www.w3.org/2001/XMLSchema</as:namespace>
+    <as:namespace prefix="as">http://www.oasis-open.org/committees/cam</as:namespace>
+    <as:namespace prefix="xml">http://www.w3.org/XML/1998/namespace</as:namespace>
+    <as:namespace prefix="camed">http://jcam.org.uk/editor</as:namespace>
+  </as:Namespaces>
+  <as:Parameters>
+    <as:Parameter name="verify_CPHARM.Vaccines" default="ProviderID+%3D+%24ProviderID" use="dbmapping" />
+  </as:Parameters>
+  <as:AssemblyStructure>
+    <as:Structure ID="PharmacyUpdate" reference="" taxonomy="XML">
+      <as:parameters>
+        <as:Parameter name="verify_CPHARM.Vaccines" default="ProviderID+%3D+%24ProviderID" use="dbmapping" />
+      </as:parameters>
+      <as:Element name="PharmacyUpdate" path="/PharmacyUpdate" namespace="" namespacePrefix="">
+        <as:Rule>
+          <as:constraint action="makeMandatory()" />
+        </as:Rule>
+        <as:Element name="VaccinesDetails" path="/PharmacyUpdate/VaccinesDetails" namespace="" namespacePrefix="">
+          <as:Rule>
+            <as:constraint action="makeRepeatable()" xpath="//PharmacyUpdate/VaccinesDetails" />
+          </as:Rule>
+          <camed:annotation item="//PharmacyUpdate/VaccinesDetails">
+            <camed:documentation type="Definition">Vaccines inventory details</camed:documentation>
+          </camed:annotation>
+          <as:Element name="ProviderID" path="/PharmacyUpdate/VaccinesDetails/ProviderID" namespace="" namespacePrefix="" exampleValue="%123456%">
+            <as:Rule>
+              <as:constraint action="setNumberMask(##########)" xpath="//VaccinesDetails/ProviderID" />
+            </as:Rule>
+            <camed:annotation item="/PharmacyUpdate/VaccinesDetails/ProviderID">
+              <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.ProviderID</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="UniqueID" path="/PharmacyUpdate/VaccinesDetails/UniqueID" namespace="" namespacePrefix="" exampleValue="%123456%">
+            <as:Rule>
+              <as:constraint action="setNumberMask(##########)" xpath="//VaccinesDetails/UniqueID" />
+            </as:Rule>
+            <camed:annotation item="/PharmacyUpdate/VaccinesDetails/UniqueID">
+              <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.UniqueID</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+          <as:Element name="InStockCode" path="/PharmacyUpdate/VaccinesDetails/InStockCode" namespace="" namespacePrefix="" exampleValue="%token%">
+            <as:Rule>
+              <as:constraint action="datatype(token)" xpath="//VaccinesDetails/InStockCode" />
+              <as:constraint action="restrictValues('Y'|'N')" xpath="//VaccinesDetails/InStockCode" />
+              <as:constraint action="setLength(1-1)" xpath="//VaccinesDetails/InStockCode" />
+            </as:Rule>
+            <camed:annotation item="/PharmacyUpdate/VaccinesDetails/InStockCode">
+              <camed:documentation type="DBMapping">verify_CPHARM.Vaccines.InStock</camed:documentation>
+            </camed:annotation>
+          </as:Element>
+        </as:Element>
+      </as:Element>
+    </as:Structure>
+  </as:AssemblyStructure>
+</as:CAM>

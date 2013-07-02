@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:dblook="http://jcam.org.uk/DbLookupLists"
+ xmlns:look="http://jcam.org.uk/LookupLists"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1" elementFormDefault="qualified">
+  <xsd:annotation>
+    <xsd:documentation>NOTICE: Generated from CAM template by XSLT
+                    NOTICE:  This schema is designed to maximize software interoperability and uses basic XSD Schema constructs only.
+                     
+                    CAM Template Header information: 
+                    
+                    Description: No Description 
+                    Owner: Not Set 
+                    Date: 2013-07-01T08:11:56 
+                    Version: 0.1 
+                    XSD generator: v1.63 
+                    NS Mode: true 
+                    XSDOutput Mode: default
+                    NOTICE: Please refer to the original source owner schema, dictionary, and/or CAM template for updates and changes.
+                    NOTICE: For copyright, licensing and use criteria please refer to owner authority.</xsd:documentation>
+    <xsd:appinfo source="CAM">VaccineDetails</xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="VaccineDetails" id="d2e47">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="VaccinesDetails" minOccurs="1" maxOccurs="unbounded" id="d2e54">
+          <xsd:annotation>
+            <xsd:documentation>Vaccines inventory details</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ProviderID" minOccurs="1" maxOccurs="1" id="d2e66">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Vaccines.ProviderID</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:int">
+                    <xsd:totalDigits value="10" />
+                    <xsd:fractionDigits value="0" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="VaccineName" minOccurs="0" maxOccurs="1" id="d2e79">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Vaccines.VaccineName</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="45" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="InStockCode" minOccurs="0" maxOccurs="1" id="d2e94">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Vaccines.InStock</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="1" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="UniqueID" minOccurs="1" maxOccurs="1" id="d2e111">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Vaccines.UniqueID</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:int">
+                    <xsd:totalDigits value="10" />
+                    <xsd:fractionDigits value="0" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- Parent complexTypes  -->
+  <!-- Local simpleTypes (default namespace)  -->
+  <xsd:simpleType name="ProviderIDDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderID.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="10" />
+      <xsd:fractionDigits value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="VaccineNameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for VaccineName.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="45" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="InStockCodeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for InStockCode.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="UniqueIDDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for UniqueID.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="10" />
+      <xsd:fractionDigits value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+

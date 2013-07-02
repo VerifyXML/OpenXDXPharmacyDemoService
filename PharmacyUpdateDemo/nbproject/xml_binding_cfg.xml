@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='ParmacyUpdateDemo' version='1.0'>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.exchange.providerlist' name='PharmacyList'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/PharmacyList/ProviderList.xsd' origLocation='../CAM/ProviderList.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.exchange.vaccinedetails' name='VaccinesDetails'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/VaccinesDetails/VaccineDetails.xsd' origLocation='../CAM/VaccineDetails.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.exchange.pharmacyupdate' name='PharmacyUpdate'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/PharmacyUpdate/PharmacyUpdate.xsd' origLocation='../CAM/PharmacyUpdate.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/ParmacyUpdateDemo/../CAM/ProviderList.xsd" uri="src/conf/xml-resources/jaxb/PharmacyList/ProviderList.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/ParmacyUpdateDemo/../CAM/VaccineDetails.xsd" uri="src/conf/xml-resources/jaxb/VaccineDetails/VaccineDetails.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/ParmacyUpdateDemo/../CAM/PharmacyUpdate.xsd" uri="src/conf/xml-resources/jaxb/PharmacyUpdate/PharmacyUpdate.xsd"/>
+</catalog>

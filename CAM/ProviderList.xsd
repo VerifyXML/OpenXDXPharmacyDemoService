@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:dblook="http://jcam.org.uk/DbLookupLists"
+ xmlns:look="http://jcam.org.uk/LookupLists"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1" elementFormDefault="qualified">
+  <xsd:annotation>
+    <xsd:documentation>NOTICE: Generated from CAM template by XSLT
+                    NOTICE:  This schema is designed to maximize software interoperability and uses basic XSD Schema constructs only.
+                     
+                    CAM Template Header information: 
+                    
+                    Description: No Description 
+                    Owner: Not Set 
+                    Date: 2013-06-27T13:38:17 
+                    Version: 0.1 
+                    XSD generator: v1.63 
+                    NS Mode: true 
+                    XSDOutput Mode: default
+                    NOTICE: Please refer to the original source owner schema, dictionary, and/or CAM template for updates and changes.
+                    NOTICE: For copyright, licensing and use criteria please refer to owner authority.</xsd:documentation>
+    <xsd:appinfo source="CAM">ProviderList</xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="ProviderList" id="d2e37">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PharmaciesDetails" minOccurs="1" maxOccurs="unbounded" id="d2e44">
+          <xsd:annotation>
+            <xsd:documentation>Main pharmacy directory table</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ProviderID" minOccurs="1" maxOccurs="1" id="d2e56">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.ProviderID</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:int">
+                    <xsd:totalDigits value="10" />
+                    <xsd:fractionDigits value="0" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ProviderName" minOccurs="0" maxOccurs="1" id="d2e69">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Name</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderStreet" minOccurs="0" maxOccurs="1" id="d2e84">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Street</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="CityName" minOccurs="0" maxOccurs="1" id="d2e99">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.City_Name</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="StateCode" minOccurs="0" maxOccurs="1" id="d2e115">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.State_Code</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="2" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ZIP" minOccurs="0" maxOccurs="1" id="d2e130">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.ZIP</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="10" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderAddressOther" minOccurs="0" maxOccurs="1" id="d2e145">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Address_Other</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderContactPersonInfoText" minOccurs="0" maxOccurs="1" id="d2e160">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Contact_Person_Info</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderContactTelephone" minOccurs="0" maxOccurs="1" id="d2e175">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Contact_Telephone</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="20" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderContactEMail" minOccurs="0" maxOccurs="1" id="d2e190">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Contact_EMail</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="100" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderWebsiteURL" minOccurs="0" maxOccurs="1" id="d2e206">
+                <xsd:annotation>
+                  <xsd:documentation>Website URL</xsd:documentation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Website_URL</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="200" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="ProviderFacilityType" minOccurs="0" maxOccurs="1" id="d2e227">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Facility_Type</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="25" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="LastUpdatedDate" minOccurs="0" maxOccurs="1" type="LastUpdatedDateDefinition" id="d2e242">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Last_Updated_Date</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="FacilityStatus" minOccurs="0" maxOccurs="1" id="d2e257">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Facility_Status</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:simpleContent>
+                    <xsd:restriction base="xsd:anyType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1" />
+                          <xsd:maxLength value="15" />
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:restriction>
+                  </xsd:simpleContent>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- Parent complexTypes  -->
+  <!-- Local simpleTypes (default namespace)  -->
+  <xsd:simpleType name="ProviderIDDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderID.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="10" />
+      <xsd:fractionDigits value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderNameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderName.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderStreetDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderStreet.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CityNameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for CityName.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="StateCodeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for StateCode.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ZIPDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ZIP.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="10" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderAddressOtherDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderAddressOther.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderContactPersonInfoTextDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderContactPersonInfoText.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderContactTelephoneDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderContactTelephone.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="20" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderContactEMailDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderContactEMail.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderWebsiteURLDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderWebsiteURL.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="200" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderFacilityTypeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderFacilityType.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="25" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LastUpdatedDateDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for LastUpdatedDate.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:date" />
+  </xsd:simpleType>
+  <xsd:simpleType name="FacilityStatusDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for FacilityStatus.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="15" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+
