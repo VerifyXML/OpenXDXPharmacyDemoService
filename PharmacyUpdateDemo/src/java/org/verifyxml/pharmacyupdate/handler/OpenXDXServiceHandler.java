@@ -17,7 +17,8 @@ import org.verifyxml.jaxb.exchange.vaccinedetails.VaccineDetails;
 import org.verifyxml.jaxb.exchange.vaccinedetails.VaccineDetails.VaccinesDetails;
 
 /**
- *
+ * OpenXDX Services Handler
+ * 
  * @author Serge Leontiev <sergeleo@users.sourceforge.net>
  */
 public class OpenXDXServiceHandler {
@@ -65,7 +66,7 @@ public class OpenXDXServiceHandler {
 
         private WebResource webResource;
         private Client client;
-        private static final String BASE_URI = "http://localhost:8080/restOpenXDXPharmacy/resources";
+        private static final String BASE_URI = "http://verifyxml.org/restOpenXDXPharmacy/resources";
 
         public PharmacyExchangeResource_JerseyClient() {
             com.sun.jersey.api.client.config.ClientConfig config = new com.sun.jersey.api.client.config.DefaultClientConfig();
