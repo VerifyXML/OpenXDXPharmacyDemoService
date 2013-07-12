@@ -78,7 +78,7 @@ public class PharmacyJSONResource {
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
-    public PharmacyJSONResource() {
+    public PharmacyJSONResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
     

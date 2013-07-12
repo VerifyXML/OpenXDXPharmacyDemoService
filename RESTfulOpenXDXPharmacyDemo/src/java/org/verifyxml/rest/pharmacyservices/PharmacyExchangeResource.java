@@ -41,6 +41,7 @@
  */
 package org.verifyxml.rest.pharmacyservices;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -53,6 +54,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import org.verifyxml.jaxb.pharmacyservices.PharmacyUpdate;
 
 /**
@@ -71,7 +74,7 @@ public class PharmacyExchangeResource {
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
-    public PharmacyExchangeResource() {
+    public PharmacyExchangeResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
     
@@ -122,11 +125,28 @@ public class PharmacyExchangeResource {
     @Path("/update")
     @Consumes(MediaType.APPLICATION_XML)
     public Response updatePharmacy(PharmacyUpdate pharmacyUpdate){
-        
-        System.out.println(pharmacyUpdate.getVaccinesDetails().get(0).getUniqueID());
-        
+        // Set Response builder
         Response.ResponseBuilder response;
-        response = Response.ok(); 
+        
+        File tmpFile = null;        
+        try{
+            // Marshall object to file
+            tmpFile = File.createTempFile("OpenXDX", "-publish.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(PharmacyUpdate.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.marshal(pharmacyUpdate, tmpFile);
+            
+            // Publish data through OpenXDX
+            openXDXHandler.putOpenXDX(openXDXHandler.pharmacyUpdateTemplateFile, tmpFile);
+
+            response = Response.ok(); 
+        }catch (Exception e){
+            LOG.log(Level.SEVERE, "Error in XML Web Service", e);
+            response = Response.serverError();
+        }finally{
+            if(tmpFile != null)
+                tmpFile.deleteOnExit();
+        }
         
         return response.build();
     }

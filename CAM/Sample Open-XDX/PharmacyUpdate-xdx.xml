@@ -16,7 +16,9 @@
                     Default content: type 
                     Random error mode: false
                     Debug mode: false
-                    Namespace mode: true --><PharmacyUpdate>
+                    Namespace mode: true
+ 
+--><PharmacyUpdate>
    <VaccinesDetails>
       <ProviderID>2</ProviderID>
       <UniqueID>2011</UniqueID>

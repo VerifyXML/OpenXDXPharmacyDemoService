@@ -75,9 +75,11 @@ public class OpenXDXHandler {
     private static final String PROVIDER_LOOKUP_QUERY_TEMPLATE = "/ProvidersFullLookup.cxf";
     private static final String PROVIDER_LIST_TEMPLATE = "/ProviderList.cxf";
     private static final String VACCINE_DETAILS_TEMPLATE = "/VaccineDetails.cxf";
+    private static final String PHARMACY_UPDATE_TEMPLATE = "/PharmacyUpdate.cxf";
     public File providerLookupTemplateFile;
     public File providerListTemplateFile;
     public File vaccineDetailsTemplateFile;
+    public File pharmacyUpdateTemplateFile;
     
     // Data source
     private DataSource datasourceChicago;
@@ -85,7 +87,7 @@ public class OpenXDXHandler {
     /**
      * The main constructor. This constructor initiates DataSource object from JNDI.
      */
-    public OpenXDXHandler() {        
+    public OpenXDXHandler() throws Exception {        
         
         // Lookup and set DataSource
         try {
@@ -98,8 +100,31 @@ public class OpenXDXHandler {
             providerLookupTemplateFile = extractResource(PROVIDER_LOOKUP_QUERY_TEMPLATE);
             providerListTemplateFile = extractResource(PROVIDER_LIST_TEMPLATE);
             vaccineDetailsTemplateFile = extractResource(VACCINE_DETAILS_TEMPLATE);
-        } catch (Exception e) {
+            pharmacyUpdateTemplateFile = extractResource(PHARMACY_UPDATE_TEMPLATE);
+        } catch (Exception e) {            
             LOG.log(Level.SEVERE, "Cannot initialize OpenXDXHandler", e);
+            throw new Exception(e);
+        }
+    }
+    
+    public void putOpenXDX(File cxfFile, File xml) throws Exception{
+        try {
+            
+            // Get new Processor
+            com.oracle.openxdx.processor.Processor processor = XDXFactory.newProcessor();
+
+            // Set CAM Template
+            processor.setTemplate(cxfFile);
+
+            // Set Data source
+            processor.setDataSource(datasourceChicago);
+
+            // Extract data
+            processor.publish(xml);
+
+        } catch (Exception e) {
+           LOG.log(Level.SEVERE, "Unable to publish OpenXDX Data", e);
+           throw new Exception(e);
         }
     }
     
@@ -110,7 +135,7 @@ public class OpenXDXHandler {
      * @param tokens Parameter tokens
      * @return OpenXDX XML Object as String
      */
-    public String getOpenXDX(File cxfFile, Map<String, String> tokens) {
+    public String getOpenXDX(File cxfFile, Map<String, String> tokens) throws Exception {
         
         String xmlString = null;
         
@@ -146,6 +171,7 @@ public class OpenXDXHandler {
             xmlString = out.toString();
         } catch (Exception e) {
            LOG.log(Level.SEVERE, "Unable to extract OpenXDX Data", e);
+           throw new Exception(e);
         } finally {
             if(dataOutput != null)
                 dataOutput.deleteOnExit();
@@ -198,6 +224,7 @@ public class OpenXDXHandler {
         providerLookupTemplateFile.deleteOnExit();
         providerListTemplateFile.deleteOnExit();
         vaccineDetailsTemplateFile.deleteOnExit();
+        pharmacyUpdateTemplateFile.deleteOnExit();
         super.finalize();
     }   
 }

@@ -68,7 +68,7 @@ public class PharmacyXMLResource {
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
-    public PharmacyXMLResource() {
+    public PharmacyXMLResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
     
