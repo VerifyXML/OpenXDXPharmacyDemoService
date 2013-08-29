@@ -38,16 +38,15 @@
  * Contributor(s):
  *
  * Portions Copyrighted 2013 Sun Microsystems, Inc.
+ * Portions VerifyXML.org
  */
 package org.verifyxml.rest.pharmacyservices;
 
 import com.oracle.openxdx.XDXFactory;
+import com.oracle.openxdx.processor.Processor;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +54,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import org.apache.commons.io.IOUtils;
+import org.xml.sax.InputSource;
 
 /**
  * Sample OpenXDX handler class for Pharmacy Search Demo. Provides support for invocation of OpenXDX API calls
@@ -68,18 +70,11 @@ public class OpenXDXHandler {
     // Defines JNDI name for Data source
     private static String CHICAGO_DATASOURCE_CONTEXT = "jdbc/CPHARM";
 
-    // OpenXDX variables
-    private static final String OPEN_XDX_DUMP_XML = "-open-xdx-dump.xml";
-
     //CAM Templates
-    private static final String PROVIDER_LOOKUP_QUERY_TEMPLATE = "/ProvidersFullLookup.cxf";
-    private static final String PROVIDER_LIST_TEMPLATE = "/ProviderList.cxf";
-    private static final String VACCINE_DETAILS_TEMPLATE = "/VaccineDetails.cxf";
-    private static final String PHARMACY_UPDATE_TEMPLATE = "/PharmacyUpdate.cxf";
-    public File providerLookupTemplateFile;
-    public File providerListTemplateFile;
-    public File vaccineDetailsTemplateFile;
-    public File pharmacyUpdateTemplateFile;
+    public static final String PROVIDER_LOOKUP_QUERY_TEMPLATE = "/ProvidersFullLookup.cxf";
+    public static final String PROVIDER_LIST_TEMPLATE = "/ProviderList.cxf";
+    public static final String VACCINE_DETAILS_TEMPLATE = "/VaccineDetails.cxf";
+    public static final String PHARMACY_UPDATE_TEMPLATE = "/PharmacyUpdate.cxf";
     
     // Data source
     private DataSource datasourceChicago;
@@ -97,24 +92,20 @@ public class OpenXDXHandler {
             }
             datasourceChicago = (DataSource)initialContext.lookup(CHICAGO_DATASOURCE_CONTEXT);
 
-            providerLookupTemplateFile = extractResource(PROVIDER_LOOKUP_QUERY_TEMPLATE);
-            providerListTemplateFile = extractResource(PROVIDER_LIST_TEMPLATE);
-            vaccineDetailsTemplateFile = extractResource(VACCINE_DETAILS_TEMPLATE);
-            pharmacyUpdateTemplateFile = extractResource(PHARMACY_UPDATE_TEMPLATE);
         } catch (Exception e) {            
             LOG.log(Level.SEVERE, "Cannot initialize OpenXDXHandler", e);
             throw new Exception(e);
         }
     }
     
-    public void putOpenXDX(File cxfFile, File xml) throws Exception{
+    public void putOpenXDX(String cxfFile, InputSource xml) throws Exception{
         try {
             
             // Get new Processor
             com.oracle.openxdx.processor.Processor processor = XDXFactory.newProcessor();
 
             // Set CAM Template
-            processor.setTemplate(cxfFile);
+            processor.setTemplate(new InputSource(OpenXDXHandler.class.getResourceAsStream(cxfFile)));
 
             // Set Data source
             processor.setDataSource(datasourceChicago);
@@ -135,96 +126,51 @@ public class OpenXDXHandler {
      * @param tokens Parameter tokens
      * @return OpenXDX XML Object as String
      */
-    public String getOpenXDX(File cxfFile, Map<String, String> tokens) throws Exception {
-        
-        String xmlString = null;
-        
-        // Set Output Stream for XML
-        ByteArrayOutputStream out = null;
-        
-        // Set temporary data file
-        File dataOutput = null;
-        
-        try {
-            out = new ByteArrayOutputStream();
-            
-            // Get new Processor
-            com.oracle.openxdx.processor.Processor processor = XDXFactory.newProcessor();
+    public StreamSource getOpenXDX(String cxfFile, Map<String, String> tokens) throws Exception {
+        StreamSource xdxSource = null;
 
-            // Define data output and final result files
-            dataOutput =
-                    File.createTempFile(this.getClass().getName(), OPEN_XDX_DUMP_XML);
+        // Set Output Stream for XML
+        ByteArrayOutputStream outOpenXDX = null;
+
+        // Set temporary data
+        ByteArrayOutputStream dataExtract = null;
+        try {
+
+            outOpenXDX = new ByteArrayOutputStream();
+            StreamResult result = new StreamResult(outOpenXDX);
+
+            // Get new Processor
+            Processor processor = XDXFactory.newProcessor();
+
+            // Define data output stream
+            dataExtract = new ByteArrayOutputStream();
 
             // Set CAM Template
-            processor.setTemplate(cxfFile);
+            processor.setTemplate(new InputSource(OpenXDXHandler.class.getResourceAsStream(cxfFile)));
 
             // Set Data source
             processor.setDataSource(datasourceChicago);
 
             // Extract data
-            processor.extract(dataOutput, tokens);
+            processor.extract(new OutputStreamWriter(dataExtract), tokens);
 
             // Generate Open-XDX XML
-            StreamResult result = new StreamResult(out);            
-            processor.generate(dataOutput, result);        
-            // Set XML String
-            xmlString = out.toString();
+            processor.generate(new InputSource(new ByteArrayInputStream(dataExtract.toByteArray())), result);
+
+            // Set XML Source
+            xdxSource = new StreamSource(new ByteArrayInputStream(outOpenXDX.toByteArray()));
+
         } catch (Exception e) {
-           LOG.log(Level.SEVERE, "Unable to extract OpenXDX Data", e);
-           throw new Exception(e);
+            LOG.log(Level.SEVERE, "OpenXDX Error", e);
         } finally {
-            if(dataOutput != null)
-                dataOutput.deleteOnExit();
-            if(out != null){
-                try {
-                    out.close();
-                } catch (IOException ex) {
-                    LOG.log(Level.SEVERE, null, ex);
-                }               
+            if (outOpenXDX != null) {
+                IOUtils.closeQuietly(outOpenXDX);
+            }
+            if (dataExtract != null) {
+                IOUtils.closeQuietly(dataExtract);
             }
         }
-        return xmlString;
+        return xdxSource;
     }
     
-    /**
-     * Extracting application resource to file system
-     * 
-     * @param resourceName
-     * @return File object
-     */
-    private File extractResource(String resourceName) {
-        File tmpFile = null;
-        try {
-            tmpFile = File.createTempFile(this.getClass().getName(), ".cxf");
-            // read resource into InputStream
-            InputStream inputStream =
-                this.getClass().getResourceAsStream(resourceName);
-
-            // write the inputStream to a FileOutputStream
-            OutputStream out = new FileOutputStream(tmpFile);
-
-            int read;
-            byte[] bytes = new byte[1024];
-
-            while ((read = inputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-
-            inputStream.close();
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, null, e);
-        }
-        return tmpFile;
-    }
-     
-    @Override
-    protected void finalize() throws Throwable {        
-        providerLookupTemplateFile.deleteOnExit();
-        providerListTemplateFile.deleteOnExit();
-        vaccineDetailsTemplateFile.deleteOnExit();
-        pharmacyUpdateTemplateFile.deleteOnExit();
-        super.finalize();
-    }   
 }

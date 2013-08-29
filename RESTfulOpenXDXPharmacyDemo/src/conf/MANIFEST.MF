@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.4
-Created-By: 1.6.0_27-b27 (Sun Microsystems Inc.)
+Created-By: 1.6.0_27-b07 (Sun Microsystems Inc.)
 Bundle-Name: OpenXDX RESTful Services Demo
 Bundle-Version: 1.0
-Bundle-Date: 2013-07-12 13:29:01 CDT
+Bundle-Date: 2013-08-29 17:21:55 CDT
 Implementation-Title: OpenXDX RESTful Services Demo
 Implementation-Version: 1.0
 Implementation-URL: http://verifyxml.org

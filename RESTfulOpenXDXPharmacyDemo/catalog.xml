@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/RESTfulOpenXDXPharmacyDemo/../CAM/ProvidersFullLookup.xsd" uri="src/conf/xml-resources/jaxb/ProviderFullLookup/ProvidersFullLookup.xsd"/>
     <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/RESTfulOpenXDXPharmacyDemo/../CAM/PharmacyUpdate.xsd" uri="src/conf/xml-resources/jaxb/PharmacyUpdate/PharmacyUpdate.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/RESTfulOpenXDXPharmacyDemo/../CAM/ProvidersFullLookup.xsd" uri="src/conf/xml-resources/jaxb/ProviderFullLookup/ProvidersFullLookup.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/RESTfulOpenXDXPharmacyDemo/../CAM/VaccineDetails.xsd" uri="src/conf/xml-resources/jaxb/VaccineDetails/VaccineDetails.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/RESTfulOpenXDXPharmacyDemo/../CAM/ProviderList.xsd" uri="src/conf/xml-resources/jaxb/ProviderList/ProviderList.xsd"/>
 </catalog>

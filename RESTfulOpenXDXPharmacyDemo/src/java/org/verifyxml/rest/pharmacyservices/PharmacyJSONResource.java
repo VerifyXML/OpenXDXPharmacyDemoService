@@ -38,6 +38,7 @@
  * Contributor(s):
  *
  * Portions Copyrighted 2013 Sun Microsystems, Inc.
+ * Portions VerifyXML.org
  */
 package org.verifyxml.rest.pharmacyservices;
 
@@ -47,6 +48,7 @@ import de.odysseus.staxon.json.JsonXMLOutputFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,26 +64,27 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Sample JSON RESTful Web Service for Pharmacy Search Demo.
- * 
+ *
  * @author Serge Leontiev <sergeleo@users.sourceforge.net>
  */
 @Path("/JSON")
 public class PharmacyJSONResource {
-    private static final Logger LOG = Logger.getLogger(PharmacyJSONResource.class.getName());    
-    
+
+    private static final Logger LOG = Logger.getLogger(PharmacyJSONResource.class.getName());
     // OpenXDX Handler
-    private OpenXDXHandler openXDXHandler;    
-   
+    private OpenXDXHandler openXDXHandler;
+
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
     public PharmacyJSONResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJSON(@QueryParam("zip") String zip, @QueryParam("vaccType") String vaccType) {
@@ -89,26 +92,24 @@ public class PharmacyJSONResource {
         Response.ResponseBuilder response;
         try{
             Map<String, String> tokens = new HashMap<String, String>();
-            tokens.put("$ZIPsearch", zip);        
-            if(vaccType == null){
+            tokens.put("$ZIPsearch", zip);
+            if (vaccType == null) {
                 tokens.put("$VaccineTypeID", "NULL");
-            }else{
+            } else {
                 tokens.put("$VaccineTypeID", vaccType);
             }
-            String xml = openXDXHandler.getOpenXDX(openXDXHandler.providerLookupTemplateFile, tokens);
-            if(xml != null){
-                response = Response.ok(convertXMLtoJSON(xml), MediaType.APPLICATION_JSON);           
-            }else{
-                response = Response.serverError();           
-            }
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(openXDXHandler.getOpenXDX(OpenXDXHandler.PROVIDER_LOOKUP_QUERY_TEMPLATE, tokens).getInputStream(), writer);
+
+            response = Response.ok(convertXMLtoJSON(writer.toString()), MediaType.APPLICATION_JSON);           
         }catch (Exception e){
             response = Response.serverError();           
             LOG.log(Level.SEVERE, "Error in JSON Web Service", e);
         }
         return response.build();
     }
-    
-    private String convertXMLtoJSON(String xml) throws IOException{
+
+    private String convertXMLtoJSON(String xml) throws IOException {
         String jsonResult = null;
         ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes());
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -127,39 +128,39 @@ public class PharmacyJSONResource {
                 .prettyPrint(true)
                 .build();
         try {
-                /*
-                 * Create reader (XML).
-                 */
-                XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(input);
+            /*
+             * Create reader (XML).
+             */
+            XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(input);
 
-                /*
-                 * Create writer (JSON).
-                 */
-                XMLEventWriter writer = new JsonXMLOutputFactory(config).createXMLEventWriter(output);
+            /*
+             * Create writer (JSON).
+             */
+            XMLEventWriter writer = new JsonXMLOutputFactory(config).createXMLEventWriter(output);
 
-                /*
-                 * Copy events from reader to writer.
-                 */
-                writer.add(reader);
+            /*
+             * Copy events from reader to writer.
+             */
+            writer.add(reader);
 
-                /*
-                 * Close reader/writer.
-                 */
-                reader.close();
-                writer.close();
-                
-                jsonResult = output.toString("UTF-8");
+            /*
+             * Close reader/writer.
+             */
+            reader.close();
+            writer.close();
+
+            jsonResult = output.toString("UTF-8");
         } catch (XMLStreamException ex) {
             Logger.getLogger(PharmacyJSONResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(PharmacyJSONResource.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-                /*
-                 * As per StAX specification, XMLEventReader/Writer.close() doesn't close
-                 * the underlying stream.
-                 */
-                output.close();
-                input.close();
+            /*
+             * As per StAX specification, XMLEventReader/Writer.close() doesn't close
+             * the underlying stream.
+             */
+            output.close();
+            input.close();
         }
         return jsonResult;
     }

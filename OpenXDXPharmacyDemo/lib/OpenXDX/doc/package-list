@@ -1,5 +1,6 @@
+com.devwebsphere.jdbc.loader
 com.oracle.openxdx
 com.oracle.openxdx.processor
 com.oracle.openxdx.processor.impl
 com.oracle.openxdx.sql
-com.oracle.openxdx.sql.schema
+com.oracle.openxdx.sql.metadata

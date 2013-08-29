@@ -68,4 +68,21 @@
     nbproject/build-impl.xml file. 
 
     -->
+        <target name="-pre-init">
+        <property name="project.name" value="Pharmacy Update Demo" />
+        <property name="version.num" value="1.0" />
+        <tstamp>
+            <format property="NOW" pattern="yyyy-MM-dd HH:mm:ss z" />
+        </tstamp>
+
+        <manifest file="src/conf/MANIFEST.MF">
+            <attribute name="Bundle-Name" value="${project.name}" />           
+            <attribute name="Bundle-Version" value="${version.num}" />
+            <attribute name="Bundle-Date" value="${NOW}" />
+            <attribute name="Implementation-Title" value="${project.name}" />
+            <attribute name="Implementation-Version" value="${version.num}" />
+            <attribute name="Implementation-URL" value="http://verifyxml.org" />
+        </manifest>
+
+    </target>
 </project>

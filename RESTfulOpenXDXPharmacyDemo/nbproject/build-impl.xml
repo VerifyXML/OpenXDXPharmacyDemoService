@@ -18,8 +18,8 @@
 
         -->
 <project xmlns:webproject1="http://www.netbeans.org/ns/web-project/1" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:webproject3="http://www.netbeans.org/ns/web-project/3" basedir=".." default="default" name="RESTfulOpenXDXPharmacyDemo-impl">
-    <import file="rest-build.xml"/>
     <import file="xml_binding_build.xml"/>
+    <import file="rest-build.xml"/>
     <import file="ant-deploy.xml"/>
     <fail message="Please build using Ant 1.7.1 or higher.">
         <condition>
@@ -870,7 +870,7 @@ exists or setup the property manually. For example like this:
     <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
-    <target depends="init,deps-jar,jaxb-code-generation,generate-rest-config" name="-pre-pre-compile">
+    <target depends="init,deps-jar,generate-rest-config,jaxb-code-generation" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
     </target>
     <target name="-pre-compile">
@@ -1014,6 +1014,7 @@ exists or setup the property manually. For example like this:
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.OpenXDX.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.StAXON.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.Apache_Commons_IO.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.ProvidersFullLookup.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>
         <copyfiles files="${file.reference.ProviderList.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>
         <copyfiles files="${file.reference.VaccineDetails.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>
@@ -1024,6 +1025,7 @@ exists or setup the property manually. For example like this:
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${libs.OpenXDX.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.StAXON.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.Apache_Commons_IO.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.ProvidersFullLookup.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>
         <copyfiles files="${file.reference.ProviderList.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>
         <copyfiles files="${file.reference.VaccineDetails.cxf}" todir="${build.web.dir}//WEB-INF/classes"/>

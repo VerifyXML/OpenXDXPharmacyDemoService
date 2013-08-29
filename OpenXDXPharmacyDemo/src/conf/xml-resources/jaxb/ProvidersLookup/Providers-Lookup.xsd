@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:dblook="http://jcam.org.uk/DbLookupLists"
+ xmlns:look="http://jcam.org.uk/LookupLists"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1" elementFormDefault="qualified">
+  <xsd:annotation>
+    <xsd:documentation>NOTICE: Generated from CAM template by XSLT
+                    NOTICE:  This schema is designed to maximize software interoperability and uses basic XSD Schema constructs only.
+                     
+                    CAM Template Header information: 
+                    
+                    Description: Retrieves SQL data for Providers locations 
+                    Owner: Chicago 
+                    Date: 2013-04-03T00:34:31 
+                    Version: 0.1 
+                    XSD generator: v1.65 
+                    NS Mode: true 
+                    XSDOutput Mode: default
+                    NOTICE: Please refer to the original source owner schema, dictionary, and/or CAM template for updates and changes.
+                    NOTICE: For copyright, licensing and use criteria please refer to owner authority.</xsd:documentation>
+    <xsd:appinfo source="CAM">Providers</xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="Providers" id="d2e47">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Pharmacy" minOccurs="1" maxOccurs="unbounded" id="d2e54">
+          <xsd:annotation>
+            <xsd:documentation>Main pharmacy directory table</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ProviderID" minOccurs="1" maxOccurs="1" id="d2e66">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.ProviderID</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:int">
+                    <xsd:totalDigits value="10" />
+                    <xsd:fractionDigits value="0" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="XcoordValue" minOccurs="0" maxOccurs="1" id="d2e79">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Xcoord</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="8" />
+                    <xsd:fractionDigits value="2" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="YcoordValue" minOccurs="0" maxOccurs="1" id="d2e96">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Ycoord</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="8" />
+                    <xsd:fractionDigits value="2" />
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ProviderName" minOccurs="0" maxOccurs="1" type="ProviderNameDefinition" id="d2e113">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Name</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="ProviderStreet" minOccurs="0" maxOccurs="1" type="ProviderStreetDefinition" id="d2e129">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Street</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="CityName" minOccurs="0" maxOccurs="1" type="CityNameDefinition" id="d2e144">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.City_Name</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="StateCode" minOccurs="0" maxOccurs="1" type="StateCodeDefinition" id="d2e159">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.State_Code</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="ZIP" minOccurs="0" maxOccurs="1" type="ZIPDefinition" id="d2e174">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.ZIP</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="ProviderFacilityType" minOccurs="0" maxOccurs="1" type="ProviderFacilityTypeDefinition" id="d2e189">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Provider_Facility_Type</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="LastUpdatedDate" minOccurs="0" maxOccurs="1" type="LastUpdatedDateDefinition" id="d2e204">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Last_Updated_Date</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="FacilityStatus" minOccurs="0" maxOccurs="1" type="FacilityStatusDefinition" id="d2e220">
+                <xsd:annotation>
+                  <xsd:documentation>verify_CPHARM.Pharmacies.Facility_Status</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- Parent complexTypes  -->
+  <!-- Local simpleTypes (default namespace)  -->
+  <xsd:simpleType name="ProviderIDDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderID.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="10" />
+      <xsd:fractionDigits value="0" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="XcoordValueDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for XcoordValue.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:totalDigits value="8" />
+      <xsd:fractionDigits value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="YcoordValueDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for YcoordValue.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:totalDigits value="8" />
+      <xsd:fractionDigits value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderNameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderName.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderStreetDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderStreet.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CityNameDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for CityName.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="StateCodeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for StateCode.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ZIPDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ZIP.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="10" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProviderFacilityTypeDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for ProviderFacilityType.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="25" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LastUpdatedDateDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for LastUpdatedDate.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:date" />
+  </xsd:simpleType>
+  <xsd:simpleType name="FacilityStatusDefinition">
+    <xsd:annotation>
+      <xsd:documentation>The type for FacilityStatus.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="15" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+

@@ -38,10 +38,12 @@
  * Contributor(s):
  *
  * Portions Copyrighted 2013 Sun Microsystems, Inc.
+ * Portions VerifyXML.org
  */
 package org.verifyxml.rest.pharmacyservices;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -56,99 +58,101 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import org.verifyxml.jaxb.pharmacyservices.PharmacyUpdate;
+import javax.xml.bind.Unmarshaller;
+import org.apache.commons.io.IOUtils;
+import org.verifyxml.jaxb.pharmacyupdate.PharmacyUpdate;
+import org.verifyxml.jaxb.providerlist.ProviderList;
+import org.verifyxml.jaxb.vaccinedetails.VaccineDetails;
+import org.xml.sax.InputSource;
 
 /**
  *
  * @author Serge Leontiev <sergeleo@users.sourceforge.net>
  */
-
 @Path("/Exchange")
 public class PharmacyExchangeResource {
-    
-    private static final Logger LOG = Logger.getLogger(PharmacyExchangeResource.class.getName()); 
-     
+
+    private static final Logger LOG = Logger.getLogger(PharmacyExchangeResource.class.getName());
     // OpenXDX Handler
-    private OpenXDXHandler openXDXHandler;    
-   
+    private OpenXDXHandler openXDXHandler;
+
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
     public PharmacyExchangeResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
-    
-    @GET 
+
+    @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_XML)
-    public Response getPharmacies(){
-        // Set Response builder
-        Response.ResponseBuilder response;
-        try{
-            String xml = openXDXHandler.getOpenXDX(openXDXHandler.providerListTemplateFile, null);
-            if(xml != null){
-                response = Response.ok(xml, MediaType.APPLICATION_XML);           
-            }else{
-                response = Response.serverError();           
-            }
-        }catch (Exception e){
-            response = Response.serverError();           
+    public ProviderList getPharmacies() {
+        ProviderList providerList = null;
+        try {
+            JAXBContext jaxbContext =
+                    JAXBContext.newInstance(ProviderList.class);
+            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+
+            providerList = (ProviderList) jaxbUnMarshaller.unmarshal(openXDXHandler.getOpenXDX(OpenXDXHandler.PROVIDER_LIST_TEMPLATE, null));
+
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error in XML Web Service", e);
         }
-        return response.build();
-    }
-    
-    @GET 
-    @Path("/details")
-    @Produces(MediaType.APPLICATION_XML)
-    public Response getPharmacyDetails(@QueryParam("ProviderID") int providerId){
-        // Set Response builder
-        Response.ResponseBuilder response;
-        try{
-            Map<String, String> tokens = new HashMap<String, String>();
-            tokens.put("$ProviderID", Integer.toString(providerId));
-            String xml = openXDXHandler.getOpenXDX(openXDXHandler.vaccineDetailsTemplateFile, tokens);
-            if(xml != null){
-                response = Response.ok(xml, MediaType.APPLICATION_XML);           
-            }else{
-                response = Response.serverError();           
-            }
-        }catch (Exception e){
-            response = Response.serverError();           
-            LOG.log(Level.SEVERE, "Error in XML Web Service", e);
-        }
-        return response.build();
+        return providerList;
     }
 
-    
+    @GET
+    @Path("/details")
+    @Produces(MediaType.APPLICATION_XML)
+    public VaccineDetails getPharmacyDetails(@QueryParam("ProviderID") int providerId) {
+        VaccineDetails vaccineDetails = null;
+
+        try {
+            JAXBContext jaxbContext =
+                    JAXBContext.newInstance(VaccineDetails.class);
+            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+
+            Map<String, String> tokens = new HashMap<String, String>();
+            tokens.put("$ProviderID", Integer.toString(providerId));
+
+            vaccineDetails =
+                    (VaccineDetails) jaxbUnMarshaller.unmarshal(openXDXHandler.getOpenXDX(OpenXDXHandler.VACCINE_DETAILS_TEMPLATE, tokens));
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error in XML Web Service", e);
+        }
+        return vaccineDetails;
+    }
+
     @POST
     @Path("/update")
     @Consumes(MediaType.APPLICATION_XML)
-    public Response updatePharmacy(PharmacyUpdate pharmacyUpdate){
+    public Response updatePharmacy(PharmacyUpdate pharmacyUpdate) {
         // Set Response builder
         Response.ResponseBuilder response;
-        
-        File tmpFile = null;        
-        try{
-            // Marshall object to file
-            tmpFile = File.createTempFile("OpenXDX", "-publish.xml");
+
+        ByteArrayOutputStream xmlOut = null;
+        try {
+            // Marshall object to stream
+
+            xmlOut = new ByteArrayOutputStream();
             JAXBContext jaxbContext = JAXBContext.newInstance(PharmacyUpdate.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.marshal(pharmacyUpdate, tmpFile);
-            
-            // Publish data through OpenXDX
-            openXDXHandler.putOpenXDX(openXDXHandler.pharmacyUpdateTemplateFile, tmpFile);
+            jaxbMarshaller.marshal(pharmacyUpdate, xmlOut);
 
-            response = Response.ok(); 
-        }catch (Exception e){
+            // Publish data through OpenXDX
+            openXDXHandler.putOpenXDX(OpenXDXHandler.PHARMACY_UPDATE_TEMPLATE, new InputSource(new ByteArrayInputStream(xmlOut.toByteArray())));
+
+            response = Response.ok();
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error in XML Web Service", e);
             response = Response.serverError();
-        }finally{
-            if(tmpFile != null)
-                tmpFile.deleteOnExit();
+        } finally {
+            if (xmlOut != null) {
+                IOUtils.closeQuietly(xmlOut);
+            }
         }
-        
+
         return response.build();
     }
-    
 }

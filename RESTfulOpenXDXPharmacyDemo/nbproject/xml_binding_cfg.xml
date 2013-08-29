@@ -1,10 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='RESTfulOpenXDXPharmacyDemo' version='1.0'>
-	<schema type='-xmlschema' package='org.verifyxml.jaxb.pharmacyservices' name='PharmacyUpdate'>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.pharmacyupdate' name='PharmacyUpdate'>
 		<xjc-options>
 		</xjc-options>
 		<schema-sources>
 			<schema-source location='src/conf/xml-resources/jaxb/PharmacyUpdate/PharmacyUpdate.xsd' origLocation='../CAM/PharmacyUpdate.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.providerfulllookup' name='ProviderFullLookup'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/ProviderFullLookup/ProvidersFullLookup.xsd' origLocation='../CAM/ProvidersFullLookup.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.vaccinedetails' name='VaccineDetails'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/VaccineDetails/VaccineDetails.xsd' origLocation='../CAM/VaccineDetails.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.jaxb.providerlist' name='ProviderList'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/ProviderList/ProviderList.xsd' origLocation='../CAM/ProviderList.xsd'/>
 		</schema-sources>
 		<bindings>
 		</bindings>

@@ -38,6 +38,7 @@
  * Contributor(s):
  *
  * Portions Copyrighted 2013 Sun Microsystems, Inc.
+ * Portions VerifyXML.org
  */
 package org.verifyxml.pharmacysearch.webfilter;
 

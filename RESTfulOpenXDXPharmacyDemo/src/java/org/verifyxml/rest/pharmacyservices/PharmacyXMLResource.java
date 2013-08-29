@@ -38,6 +38,7 @@
  * Contributor(s):
  *
  * Portions Copyrighted 2013 Sun Microsystems, Inc.
+ * Portions VerifyXML.org
  */
 package org.verifyxml.rest.pharmacyservices;
 
@@ -50,52 +51,53 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import org.verifyxml.jaxb.providerfulllookup.ProvidersFullLookup;
 
 /**
  * Sample XML RESTful Web Service for Pharmacy Search Demo.
- * 
+ *
  * @author Serge Leontiev <sergeleo@users.sourceforge.net>
  */
 @Path("/XML")
 public class PharmacyXMLResource {
-    
-    private static final Logger LOG = Logger.getLogger(PharmacyJSONResource.class.getName()); 
-     
+
+    private static final Logger LOG = Logger.getLogger(PharmacyXMLResource.class.getName());
     // OpenXDX Handler
-    private OpenXDXHandler openXDXHandler;    
-   
+    private OpenXDXHandler openXDXHandler;
+
     /**
      * Default constructor. Initializes OpenXDX Handler
      */
     public PharmacyXMLResource() throws Exception {
         openXDXHandler = new OpenXDXHandler();
     }
-    
-    @GET    
+
+    @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Response getXml(@QueryParam("zip") String zip, @QueryParam("vaccType") String vaccType) {
-        // Set Response builder
-        Response.ResponseBuilder response;
-        try{
+    public ProvidersFullLookup getXml(@QueryParam("zip") String zip, @QueryParam("vaccType") String vaccType) {
+        ProvidersFullLookup providersFullLookup = null;
+
+        try {
+
+            JAXBContext jaxbContext =
+                    JAXBContext.newInstance(ProvidersFullLookup.class);
+            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+
             Map<String, String> tokens = new HashMap<String, String>();
-            tokens.put("$ZIPsearch", zip);        
-            if(vaccType == null){
+            tokens.put("$ZIPsearch", zip);
+            if (vaccType == null) {
                 tokens.put("$VaccineTypeID", "NULL");
-            }else{
+            } else {
                 tokens.put("$VaccineTypeID", vaccType);
             }
-            String xml = openXDXHandler.getOpenXDX(openXDXHandler.providerLookupTemplateFile, tokens);
-            if(xml != null){
-                response = Response.ok(xml, MediaType.APPLICATION_XML);           
-            }else{
-                response = Response.serverError();           
-            }
-        }catch (Exception e){
-            response = Response.serverError();           
+
+            providersFullLookup = (ProvidersFullLookup) jaxbUnMarshaller.unmarshal(openXDXHandler.getOpenXDX(OpenXDXHandler.PROVIDER_LOOKUP_QUERY_TEMPLATE, tokens));
+
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error in XML Web Service", e);
         }
-        return response.build();
+        return providersFullLookup;
     }
-    
 }

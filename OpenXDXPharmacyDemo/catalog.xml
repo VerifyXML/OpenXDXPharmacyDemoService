@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService?wsdl" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/localhost_8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService.wsdl"/>
     <system systemId="http://localhost:8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService?xsd=1" uri="src/conf/xml-resources/web-service-references/PharmacyOpenXDXService/wsdl/localhost_8080/OpenXDXPharmacyDemo/PharmacyOpenXDXService.xsd_1.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/OpenXDXPharmacyDemo/../CAM/Providers-Lookup.xsd" uri="src/conf/xml-resources/jaxb/ProvidersLookup/Providers-Lookup.xsd"/>
+    <system systemId="file:/home/serega/Repo/VerifyXML/OpenXDXPharmacyDemoService/OpenXDXPharmacyDemo/../CAM/Pharmacy-Vaccines-Lookup.xsd" uri="src/conf/xml-resources/jaxb/PharmacyVaccinesLookup/Pharmacy-Vaccines-Lookup.xsd"/>
 </catalog>

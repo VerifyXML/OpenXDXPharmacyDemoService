@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='OpenXDXPharmacyDemo' version='1.0'>
+	<schema type='-xmlschema' package='org.verifyxml.openxdx.jaxb.providerslookup' name='ProvidersLookup'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/ProvidersLookup/Providers-Lookup.xsd' origLocation='../CAM/Providers-Lookup.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+	<schema type='-xmlschema' package='org.verifyxml.openxdx.jaxb.vaccineslookup' name='PharmacyVaccinesLookup'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/PharmacyVaccinesLookup/Pharmacy-Vaccines-Lookup.xsd' origLocation='../CAM/Pharmacy-Vaccines-Lookup.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

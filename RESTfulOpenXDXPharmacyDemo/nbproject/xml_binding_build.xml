@@ -14,7 +14,7 @@
         <mkdir dir="${build.generated.sources.dir}/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache/PharmacyUpdate"/>
-        <xjc package="org.verifyxml.jaxb.pharmacyservices" destdir="build/generated/jaxbCache/PharmacyUpdate" catalog="catalog.xml">
+        <xjc package="org.verifyxml.jaxb.pharmacyupdate" destdir="build/generated/jaxbCache/PharmacyUpdate" catalog="catalog.xml">
             <classpath>
                 <pathelement location="${src.dir}"/>
                 <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
@@ -26,6 +26,48 @@
         </xjc>
         <copy todir="${build.generated.sources.dir}/jaxb">
             <fileset dir="build/generated/jaxbCache/PharmacyUpdate"/>
+        </copy>
+        <mkdir dir="build/generated/jaxbCache/ProviderFullLookup"/>
+        <xjc package="org.verifyxml.jaxb.providerfulllookup" destdir="build/generated/jaxbCache/ProviderFullLookup" catalog="catalog.xml">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema file="src/conf/xml-resources/jaxb/ProviderFullLookup/ProvidersFullLookup.xsd"/>
+            <depends file="src/conf/xml-resources/jaxb/ProviderFullLookup/ProvidersFullLookup.xsd"/>
+            <produces dir="build/generated/jaxbCache/ProviderFullLookup"/>
+        </xjc>
+        <copy todir="${build.generated.sources.dir}/jaxb">
+            <fileset dir="build/generated/jaxbCache/ProviderFullLookup"/>
+        </copy>
+        <mkdir dir="build/generated/jaxbCache/VaccineDetails"/>
+        <xjc package="org.verifyxml.jaxb.vaccinedetails" destdir="build/generated/jaxbCache/VaccineDetails" catalog="catalog.xml">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema file="src/conf/xml-resources/jaxb/VaccineDetails/VaccineDetails.xsd"/>
+            <depends file="src/conf/xml-resources/jaxb/VaccineDetails/VaccineDetails.xsd"/>
+            <produces dir="build/generated/jaxbCache/VaccineDetails"/>
+        </xjc>
+        <copy todir="${build.generated.sources.dir}/jaxb">
+            <fileset dir="build/generated/jaxbCache/VaccineDetails"/>
+        </copy>
+        <mkdir dir="build/generated/jaxbCache/ProviderList"/>
+        <xjc package="org.verifyxml.jaxb.providerlist" destdir="build/generated/jaxbCache/ProviderList" catalog="catalog.xml">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema file="src/conf/xml-resources/jaxb/ProviderList/ProviderList.xsd"/>
+            <depends file="src/conf/xml-resources/jaxb/ProviderList/ProviderList.xsd"/>
+            <produces dir="build/generated/jaxbCache/ProviderList"/>
+        </xjc>
+        <copy todir="${build.generated.sources.dir}/jaxb">
+            <fileset dir="build/generated/jaxbCache/ProviderList"/>
         </copy>
         <!--*** Web project javac macro does not support sourcepath attribute, so do not pass "sourcepath=${src.dir}"-->
     </target>
