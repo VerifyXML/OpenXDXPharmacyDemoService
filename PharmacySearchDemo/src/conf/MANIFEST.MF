@@ -3,7 +3,7 @@ Ant-Version: Apache Ant 1.8.4
 Created-By: 1.6.0_27-b07 (Sun Microsystems Inc.)
 Bundle-Name: Pharmacy Search Demo
 Bundle-Version: 1.0
-Bundle-Date: 2013-08-29 17:21:46 CDT
+Bundle-Date: 2013-08-30 07:36:44 CDT
 Implementation-Title: Pharmacy Search Demo
 Implementation-Version: 1.0
 Implementation-URL: http://verifyxml.org
