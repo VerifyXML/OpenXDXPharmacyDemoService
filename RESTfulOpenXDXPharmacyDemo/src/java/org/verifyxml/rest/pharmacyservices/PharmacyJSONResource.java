@@ -42,14 +42,6 @@
  */
 package org.verifyxml.rest.pharmacyservices;
 
-import de.odysseus.staxon.json.JsonXMLConfig;
-import de.odysseus.staxon.json.JsonXMLConfigBuilder;
-import de.odysseus.staxon.json.JsonXMLOutputFactory;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -59,12 +51,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLEventWriter;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import org.apache.commons.io.IOUtils;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import org.verifyxml.jaxb.providerfulllookup.ProvidersFullLookup;
 
 /**
  * Sample JSON RESTful Web Service for Pharmacy Search Demo.
@@ -87,10 +76,14 @@ public class PharmacyJSONResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJSON(@QueryParam("zip") String zip, @QueryParam("vaccType") String vaccType) {
-        // Set Response builder
-        Response.ResponseBuilder response;
-        try{
+    public ProvidersFullLookup getJSON(@QueryParam("zip") String zip, @QueryParam("vaccType") String vaccType) {
+        ProvidersFullLookup providersFullLookup = null;
+        try {
+
+            JAXBContext jaxbContext =
+                    JAXBContext.newInstance(ProvidersFullLookup.class);
+            Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
+
             Map<String, String> tokens = new HashMap<String, String>();
             tokens.put("$ZIPsearch", zip);
             if (vaccType == null) {
@@ -98,70 +91,12 @@ public class PharmacyJSONResource {
             } else {
                 tokens.put("$VaccineTypeID", vaccType);
             }
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(openXDXHandler.getOpenXDX(OpenXDXHandler.PROVIDER_LOOKUP_QUERY_TEMPLATE, tokens).getInputStream(), writer);
 
-            response = Response.ok(convertXMLtoJSON(writer.toString()), MediaType.APPLICATION_JSON);           
-        }catch (Exception e){
-            response = Response.serverError();           
+            providersFullLookup = (ProvidersFullLookup) jaxbUnMarshaller.unmarshal(openXDXHandler.getOpenXDX(OpenXDXHandler.PROVIDER_LOOKUP_QUERY_TEMPLATE, tokens));
+
+        } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error in JSON Web Service", e);
         }
-        return response.build();
-    }
-
-    private String convertXMLtoJSON(String xml) throws IOException {
-        String jsonResult = null;
-        ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes());
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        /*
-         * If we want to insert JSON array boundaries for multiple elements,
-         * we need to set the <code>autoArray</code> property.
-         * If our XML source was decorated with <code>&lt;?xml-multiple?&gt;</code>
-         * processing instructions, we'd set the <code>multiplePI</code>
-         * property instead.
-         * With the <code>autoPrimitive</code> property set, element text gets
-         * automatically converted to JSON primitives (number, boolean, null).
-         */
-        JsonXMLConfig config = new JsonXMLConfigBuilder()
-                .autoArray(true)
-                .autoPrimitive(true)
-                .prettyPrint(true)
-                .build();
-        try {
-            /*
-             * Create reader (XML).
-             */
-            XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(input);
-
-            /*
-             * Create writer (JSON).
-             */
-            XMLEventWriter writer = new JsonXMLOutputFactory(config).createXMLEventWriter(output);
-
-            /*
-             * Copy events from reader to writer.
-             */
-            writer.add(reader);
-
-            /*
-             * Close reader/writer.
-             */
-            reader.close();
-            writer.close();
-
-            jsonResult = output.toString("UTF-8");
-        } catch (XMLStreamException ex) {
-            Logger.getLogger(PharmacyJSONResource.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(PharmacyJSONResource.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            /*
-             * As per StAX specification, XMLEventReader/Writer.close() doesn't close
-             * the underlying stream.
-             */
-            output.close();
-            input.close();
-        }
-        return jsonResult;
+        return providersFullLookup;
     }
 }
